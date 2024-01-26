@@ -1,0 +1,158 @@
+/* GAP */
+.g2 {
+  gap: 2px;
+}
+.g4 {
+  gap: 4px;
+}
+.g8 {
+  gap: 8px;
+}
+
+/* FLEX */
+.flex {
+  display: flex;
+}
+
+.flex.justify-center {
+  justify-content: center;
+}
+
+.flex.justify-between {
+  justify-content: space-between;
+}
+
+.flex.justify-around {
+  justify-content: space-around;
+}
+
+.flex.justify-evenly {
+  justify-content: space-evenly;
+}
+
+.flex.justify-start {
+  justify-content: flex-start;
+}
+
+.flex.justify-end {
+  justify-content: flex-end;
+}
+
+.flex.justify-stretch {
+  justify-content: stretch;
+}
+
+/* FLEX - ALIGN ITEMS */
+.flex.align-start {
+  align-items: flex-start;
+}
+
+.flex.align-end {
+  align-items: flex-end;
+}
+
+.flex.align-center {
+  align-items: center;
+}
+
+.flex.align-baseline {
+  align-items: baseline;
+}
+
+.flex.align-stretch {
+  align-items: stretch;
+}
+
+.flex-grow {
+  flex-grow: 1;
+}
+.flex-no-grow {
+  flex-grow: 0;
+}
+
+.flex-shrink {
+  flex-shrink: 1;
+}
+.flex-no-shrink {
+  flex-shrink: 1;
+}
+
+/* GRID */
+
+.grid {
+  display: grid;
+}
+
+.grid.grid-columns-2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.grid.grid-columns-3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.grid.grid-columns-4 {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.grid.grid-rows-2 {
+  grid-template-rows: repeat(2, 1fr);
+}
+
+.grid.grid-rows-3 {
+  grid-template-rows: repeat(3, 1fr);
+}
+
+.grid.grid-rows-4 {
+  grid-template-rows: repeat(4, 1fr);
+}
+
+.grid.grid-columns-2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.grid.grid-columns-3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.grid.grid-columns-4 {
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.grid.grid-rows-2 {
+  grid-template-rows: repeat(2, 1fr);
+}
+
+.grid.grid-rows-3 {
+  grid-template-rows: repeat(3, 1fr);
+}
+
+.grid.grid-rows-4 {
+  grid-template-rows: repeat(4, 1fr);
+}
+
+/* CLEAN LIST */
+
+.clean-list {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+/* HIDE/SHOW */
+
+.hide {
+  display: none !important;
+}
+
+.show {
+  display: block !important;
+}
+
+/* OVERFLOW ELLIPSIS */
+
+.overflow-ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

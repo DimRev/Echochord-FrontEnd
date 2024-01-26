@@ -1,0 +1,21 @@
+@mixin main-layout($grid-template-columns, $grid-template-rows) {
+  display: grid;
+  grid-template-columns: $grid-template-columns;
+  grid-template-rows: $grid-template-rows;
+}
+
+@mixin breakpoint-tablet() {
+  @media (width >= 480px) {
+    @content;
+  }
+}
+@mixin breakpoint-laptop() {
+  @media (width >= 768px) {
+    @content;
+  }
+}
+@mixin breakpoint-desktop() {
+  @media (width >= 1024px) {
+    @content;
+  }
+}

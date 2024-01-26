@@ -1,0 +1,70 @@
+* {
+  box-sizing: border-box;
+}
+
+html {
+  margin: 0;
+  font-family: var(--default-font-family);
+}
+
+body {
+  font-size: var(--default-font-size);
+  line-height: var(--default-font-line);
+  font-weight: var(--default-font-weight);
+
+  margin: 0;
+
+  background-color: var(--background);
+  color: var(--copy);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0 0 1em;
+  padding: 0;
+}
+
+p {
+  margin: 0 0 1em;
+}
+
+a {
+  font-weight: 700;
+  text-decoration: none;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+button.primary {
+  background-color: var(--primary);
+  color: var(--primary-content);
+  transition: color var(--transition-normal-in-out);
+}
+button.primary:hover {
+  background-color: var(--primary-dark);
+}
+button.primary.active {
+  background-color: var(--primary-light);
+}
+button.secondary {
+  background-color: var(--secondary);
+  color: var(--secondary-content);
+  transition: color var(--transition-normal-in-out);
+}
+button.secondary:hover {
+  background-color: var(--secondary-dark);
+}
+button.secondary.active {
+  background-color: var(--secondary-light);
+}
+
+.app {
+  position: relative;
+  min-height: 100dvh;
+}

@@ -1,0 +1,84 @@
+.main-layout {
+  //* mobile -> width < 480px
+  @include main-layout(
+    minmax(var(--mobile-spacing), 1fr) minmax(auto, var(--layout-mobile))
+      minmax(var(--mobile-spacing), 1fr),
+    auto 1fr auto
+  );
+
+  @include breakpoint-tablet() {
+    //* tablet -> 480px < width < 768px
+    @include main-layout(
+      minmax(var(--tablet-spacing), 1fr) minmax(auto, var(--layout-tablet))
+        minmax(var(--tablet-spacing), 1fr),
+      auto 1fr auto
+    );
+  }
+
+  @include breakpoint-laptop() {
+    //* laptop -> 768px < width < 1024px
+    @include main-layout(
+      minmax(var(--laptop-spacing), 1fr) minmax(auto, var(--layout-laptop))
+        minmax(var(--laptop-spacing), 1fr),
+      auto 1fr auto
+    );
+  }
+
+  @include breakpoint-desktop() {
+    //* wide -> 1200px < width
+    @include main-layout(
+      minmax(var(--desktop-spacing), 1fr) minmax(auto, var(--layout-desktop))
+        minmax(var(--desktop-spacing), 1fr),
+      auto 1fr auto
+    );
+  }
+}
+
+.main-layout > *:not(.full) {
+  grid-column: 2;
+}
+.main-layout > *.full {
+  grid-column: 1 / -1;
+}
+
+.page-layout {
+  // $grid-template-rows should correspond to the number of sections in the page
+  @include main-layout(
+    minmax(var(--mobile-spacing), 1fr) minmax(auto, var(--layout-mobile))
+      minmax(var(--mobile-spacing), 1fr),
+    repeat(3, auto) 1fr
+  );
+
+  @include breakpoint-tablet() {
+    //* tablet -> 480px < width < 768px
+    @include main-layout(
+      minmax(var(--tablet-spacing), 1fr) minmax(auto, var(--layout-tablet))
+        minmax(var(--tablet-spacing), 1fr),
+      repeat(3, auto) 1fr
+    );
+  }
+
+  @include breakpoint-laptop() {
+    //* laptop -> 768px < width < 1024px
+    @include main-layout(
+      minmax(var(--laptop-spacing), 1fr) minmax(auto, var(--layout-laptop))
+        minmax(var(--laptop-spacing), 1fr),
+      repeat(3, auto) 1fr
+    );
+  }
+
+  @include breakpoint-desktop() {
+    //* wide -> 1200px < width
+    @include main-layout(
+      minmax(var(--desktop-spacing), 1fr) minmax(auto, var(--layout-desktop))
+        minmax(var(--desktop-spacing), 1fr),
+      repeat(3, auto) 1fr
+    );
+  }
+}
+.page-layout > *:not(.full) {
+  grid-column: 2;
+}
+.page-layout > *.full {
+  grid-column: 1 / -1;
+}
