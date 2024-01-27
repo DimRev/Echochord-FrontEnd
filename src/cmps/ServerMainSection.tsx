@@ -13,7 +13,7 @@ import { Outlet } from 'react-router-dom'
 
 type PropType = {}
 
-export default function ChannelSideBar({}: PropType) {
+export default function ServerMainSection({}: PropType) {
   const { selectedServer } = useContext(
     SelectedServerContext,
   ) as SelectedServerContextType
