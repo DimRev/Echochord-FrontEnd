@@ -1,10 +1,18 @@
 import { useState } from 'react'
+import { OnSelectedServer } from '../../pages/ChatPage'
 
 type PropType = {
+  serverId: string
   imgUrl?: string
   name: string
+  onSelectServer: OnSelectedServer
 }
-export default function ServerAvatar({ imgUrl, name }: PropType) {
+export default function ServerAvatar({
+  serverId,
+  imgUrl,
+  name,
+  onSelectServer,
+}: PropType) {
   const [isLoaded, setIsLoaded] = useState<boolean | null>(null)
   function getAbbreviation(name: string): string {
     const word = name.split(' ')
@@ -32,7 +40,7 @@ export default function ServerAvatar({ imgUrl, name }: PropType) {
   })()
 
   return (
-    <div className="server-avatar">
+    <div className="server-avatar" onClick={() => onSelectServer(serverId)}>
       {imgUrl && isLoaded ? (
         <img src={imgUrl} alt={name} />
       ) : (
