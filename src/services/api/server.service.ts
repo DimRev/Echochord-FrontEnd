@@ -46,7 +46,7 @@ const DB_KEY = 'serverDB'
 
 const demoData: Server[] = [
   {
-    _id: 's101', name: 'Server 1', imgUrl: 'https://randomuser.me/api/portraits/thumb/men/62.jpg', voiceChannels: [
+    _id: 's101', name: 'Server 1', imgUrl: '/src/assets/imgs/channel1.jpg', voiceChannels: [
       { id: "vr101", name: 'Voice Room 1' },
       { id: "vr102", name: 'Voice Room 2' },
       { id: "vr103", name: 'Voice Room 3' },
@@ -73,8 +73,8 @@ const demoData: Server[] = [
       ]
     }],
   },
-  { _id: 's102', name: 'Server 2', imgUrl: 'serverImgUrl2', voiceChannels: [], textChannels: [], },
-  { _id: 's103', name: 'Server 3', imgUrl: 'serverImgUrl2', voiceChannels: [], textChannels: [], }
+  { _id: 's102', name: 'Server 2', imgUrl: '/src/assets/imgs/channel2.jpg', voiceChannels: [], textChannels: [], },
+  { _id: 's103', name: 'Server 3', imgUrl: '/src/assets/imgs/channel3.jpg', voiceChannels: [], textChannels: [], }
 ]
 
 _initDemoData()
