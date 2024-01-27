@@ -3,6 +3,7 @@ import { MiniUser } from './user.service'
 export type Server = {
   _id: string
   name: string
+  imgUrl?: string
   chatRooms: ChatRoom[]
   voiceRoom: VoiceRoom[]
 }
@@ -45,21 +46,21 @@ const DB_KEY = 'serverDB'
 
 const demoData: Server[] = [
   {
-    _id: 's101', name: 'Server 1', voiceRoom: [
+    _id: 's101', name: 'Server 1', imgUrl: 'serverImgUrl1', voiceRoom: [
       { id: "vr101", name: 'Voice Room 1' },
       { id: "vr102", name: 'Voice Room 2' },
       { id: "vr103", name: 'Voice Room 3' },
     ], chatRooms: [{
       id: 'cr101', name: 'Chat Room 1', chatMsgs: [
-        { id: 'msg101', createdAt: new Date(), msg: 'This is message 1', user: { _id: 'u101', imgUrl: 'imgUrl', username: 'testUser' } },
-        { id: 'msg102', createdAt: new Date(), msg: 'This is message 2', user: { _id: 'u102', imgUrl: 'imgUrl', username: 'testUser2' } },
-        { id: 'msg103', createdAt: new Date(), msg: 'This is message 3', user: { _id: 'u101', imgUrl: 'imgUrl', username: 'testUser' } },
-        { id: 'msg104', createdAt: new Date(), msg: 'This is message 4', user: { _id: 'u103', imgUrl: 'imgUrl', username: 'testUser3' } },
+        { id: 'msg101', createdAt: new Date(), msg: 'This is message 1', user: { _id: 'u101', imgUrl: 'imgUrl1', username: 'testUser1' } },
+        { id: 'msg102', createdAt: new Date(), msg: 'This is message 2', user: { _id: 'u102', imgUrl: 'imgUrl2', username: 'testUser2' } },
+        { id: 'msg103', createdAt: new Date(), msg: 'This is message 3', user: { _id: 'u101', imgUrl: 'imgUrl1', username: 'testUser1' } },
+        { id: 'msg104', createdAt: new Date(), msg: 'This is message 4', user: { _id: 'u103', imgUrl: 'imgUrl3', username: 'testUser3' } },
       ]
     }],
   },
-  { _id: 's102', name: 'Server 2', voiceRoom: [], chatRooms: [], },
-  { _id: 's103', name: 'Server 3', voiceRoom: [], chatRooms: [], }
+  { _id: 's102', name: 'Server 2', imgUrl: 'serverImgUrl2', voiceRoom: [], chatRooms: [], },
+  { _id: 's103', name: 'Server 3', imgUrl: 'serverImgUrl2', voiceRoom: [], chatRooms: [], }
 ]
 
 _initDemoData()
