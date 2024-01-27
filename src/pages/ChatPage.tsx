@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import ChatSection from '../cmps/ChatSection'
+import ChannelChatSection from '../cmps/ChannelSection'
 import ChannelSideBar from '../cmps/ChannelSideBar'
 import ServerSideBar from '../cmps/ServerSideBar'
 import { SelectedServerContext } from '../context/SelectedServerContext'
@@ -64,7 +64,7 @@ export default function ChatPage() {
             onSelectTextChannel={onSelectTextChannel}
             onSelectVoiceChannel={onSelectVoiceChannel}
           />
-          <ChatSection selectedTextChannel={selectedTextChannel} />
+          <ChannelChatSection selectedTextChannel={selectedTextChannel} />
         </SelectedServerContext.Provider>
       </ServersContexts.Provider>
     </section>
