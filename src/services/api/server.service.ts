@@ -21,7 +21,7 @@ export type VoiceChannel = {
   name: string
 }
 
-type ChatMsg = {
+export type ChatMsg = {
   id: string
   msg: string
   createdAt: Date
@@ -51,7 +51,21 @@ const demoData: Server[] = [
       { id: "vr102", name: 'Voice Room 2' },
       { id: "vr103", name: 'Voice Room 3' },
     ], textChannels: [{
-      id: 'cr101', name: 'Chat Room 1', chatMsgs: [
+      id: 'cr101', name: 'General', chatMsgs: [
+        { id: 'msg101', createdAt: new Date(), msg: 'Hi!', user: { _id: 'u101', imgUrl: 'imgUrl1', username: 'testUser1' } },
+        { id: 'msg102', createdAt: new Date(), msg: 'What\'s up dude?', user: { _id: 'u102', imgUrl: 'imgUrl2', username: 'testUser2' } },
+        { id: 'msg103', createdAt: new Date(), msg: 'It\'s all good here! You?', user: { _id: 'u101', imgUrl: 'imgUrl1', username: 'testUser1' } },
+        { id: 'msg104', createdAt: new Date(), msg: 'Where\'ve you been?', user: { _id: 'u103', imgUrl: 'imgUrl3', username: 'testUser3' } },
+      ]
+    }, {
+      id: 'cr102', name: 'Hangout', chatMsgs: [
+        { id: 'msg101', createdAt: new Date(), msg: 'This is message 1', user: { _id: 'u101', imgUrl: 'imgUrl1', username: 'testUser1' } },
+        { id: 'msg102', createdAt: new Date(), msg: 'This is message 2', user: { _id: 'u102', imgUrl: 'imgUrl2', username: 'testUser2' } },
+        { id: 'msg103', createdAt: new Date(), msg: 'This is message 3', user: { _id: 'u101', imgUrl: 'imgUrl1', username: 'testUser1' } },
+        { id: 'msg104', createdAt: new Date(), msg: 'This is message 4', user: { _id: 'u103', imgUrl: 'imgUrl3', username: 'testUser3' } },
+      ]
+    }, {
+      id: 'cr103', name: 'Memes', chatMsgs: [
         { id: 'msg101', createdAt: new Date(), msg: 'This is message 1', user: { _id: 'u101', imgUrl: 'imgUrl1', username: 'testUser1' } },
         { id: 'msg102', createdAt: new Date(), msg: 'This is message 2', user: { _id: 'u102', imgUrl: 'imgUrl2', username: 'testUser2' } },
         { id: 'msg103', createdAt: new Date(), msg: 'This is message 3', user: { _id: 'u101', imgUrl: 'imgUrl1', username: 'testUser1' } },
