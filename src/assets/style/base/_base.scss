@@ -66,7 +66,9 @@ button.secondary.active {
 
 .app {
   position: relative;
-  min-height: 100dvh;
+  height: 100dvh;
+  display: grid;
+  grid-template-columns: 50px 1fr;
 }
 
 .svg-icon {
