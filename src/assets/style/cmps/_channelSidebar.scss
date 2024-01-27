@@ -1,0 +1,17 @@
+.channel-sidebar {
+  background-color: var(--sidebar);
+  padding: 8px 0;
+  border-top-left-radius: 12px;
+
+  .channel-sidebar-header {
+    color: var(--content-highlight);
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    height: 24px;
+    padding: 0 8px;
+    border-bottom: 1px solid black;
+  }
+}
