@@ -4,19 +4,19 @@ export type Server = {
   _id: string
   name: string
   imgUrl?: string
-  chatRooms: ChatRoom[]
-  voiceRoom: VoiceRoom[]
+  textChannels: TextChannel[]
+  voiceChannels: VoiceChannel[]
 }
 
 type NewServer = Omit<Server, '_id'>
 
-type ChatRoom = {
+export type TextChannel = {
   id: string
   name: string
   chatMsgs: ChatMsg[]
 }
 
-type VoiceRoom = {
+export type VoiceChannel = {
   id: string
   name: string
 }
@@ -46,11 +46,11 @@ const DB_KEY = 'serverDB'
 
 const demoData: Server[] = [
   {
-    _id: 's101', name: 'Server 1', imgUrl: 'serverImgUrl1', voiceRoom: [
+    _id: 's101', name: 'Server 1', imgUrl: 'https://randomuser.me/api/portraits/thumb/men/62.jpg', voiceChannels: [
       { id: "vr101", name: 'Voice Room 1' },
       { id: "vr102", name: 'Voice Room 2' },
       { id: "vr103", name: 'Voice Room 3' },
-    ], chatRooms: [{
+    ], textChannels: [{
       id: 'cr101', name: 'Chat Room 1', chatMsgs: [
         { id: 'msg101', createdAt: new Date(), msg: 'This is message 1', user: { _id: 'u101', imgUrl: 'imgUrl1', username: 'testUser1' } },
         { id: 'msg102', createdAt: new Date(), msg: 'This is message 2', user: { _id: 'u102', imgUrl: 'imgUrl2', username: 'testUser2' } },
@@ -59,8 +59,8 @@ const demoData: Server[] = [
       ]
     }],
   },
-  { _id: 's102', name: 'Server 2', imgUrl: 'serverImgUrl2', voiceRoom: [], chatRooms: [], },
-  { _id: 's103', name: 'Server 3', imgUrl: 'serverImgUrl2', voiceRoom: [], chatRooms: [], }
+  { _id: 's102', name: 'Server 2', imgUrl: 'serverImgUrl2', voiceChannels: [], textChannels: [], },
+  { _id: 's103', name: 'Server 3', imgUrl: 'serverImgUrl2', voiceChannels: [], textChannels: [], }
 ]
 
 _initDemoData()
@@ -99,7 +99,7 @@ function _initDemoData() {
 function getEmptyServer(): NewServer {
   return {
     name: '',
-    chatRooms: [],
-    voiceRoom: [],
+    textChannels: [],
+    voiceChannels: [],
   }
 }
