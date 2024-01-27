@@ -20,8 +20,9 @@ export default function ChannelLinkCollapsable({
       </button>
       {!(channels && isOpen)
         ? null
-        : channels.map((channel) => (
+        : channels.map((channel, idx) => (
             <ChannelLink
+              key={idx}
               type={type}
               channel={channel}
               onSelectChannel={onSelectChannel}

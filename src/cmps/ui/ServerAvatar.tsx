@@ -5,12 +5,14 @@ type PropType = {
   serverId: string
   imgUrl?: string
   name: string
+  selectedServerId: string | undefined
   onSelectServer: OnSelectServer
 }
 export default function ServerAvatar({
   serverId,
   imgUrl,
   name,
+  selectedServerId,
   onSelectServer,
 }: PropType) {
   const [isLoaded, setIsLoaded] = useState<boolean | null>(null)
@@ -39,8 +41,14 @@ export default function ServerAvatar({
     setIsLoaded(isLoaded)
   })()
 
+  function isActive() {
+    return selectedServerId === serverId
+  }
+
   return (
-    <div className="server-avatar" onClick={() => onSelectServer(serverId)}>
+    <div
+      className={`server-avatar ${isActive() ? 'active' : ''}`}
+      onClick={() => onSelectServer(serverId)}>
       {imgUrl && isLoaded ? (
         <img src={imgUrl} alt={name} />
       ) : (

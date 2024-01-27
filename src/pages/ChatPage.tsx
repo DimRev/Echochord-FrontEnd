@@ -58,8 +58,8 @@ export default function ChatPage() {
   return (
     <section className="page chat-page">
       <ServersContexts.Provider value={servers}>
-        <ServerSideBar onSelectServer={onSelectServer} />
         <SelectedServerContext.Provider value={selectedServer}>
+          <ServerSideBar onSelectServer={onSelectServer} />
           <ChannelSideBar
             onSelectTextChannel={onSelectTextChannel}
             onSelectVoiceChannel={onSelectVoiceChannel}
