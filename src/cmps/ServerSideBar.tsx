@@ -2,11 +2,11 @@ import { useContext } from 'react'
 import { ServersContexts } from '../context/ServersContext'
 import ServerAvatar from './ui/ServerAvatar'
 
-import { OnSelectedServer } from '../pages/ChatPage'
+import { OnSelectServer } from '../pages/ChatPage'
 import { Server } from '../services/api/server.service'
 
 type PropType = {
-  onSelectServer: OnSelectedServer
+  onSelectServer: OnSelectServer
 }
 
 export default function ServerSideBar({ onSelectServer }: PropType) {

@@ -1,11 +1,17 @@
 import { useState } from 'react'
 import { TextChannel, VoiceChannel } from '../../services/api/server.service'
+import { OnSelectTextChannel, OnSelectVoiceChannel } from '../../pages/ChatPage'
 
 type PropType = {
   type: 'text' | 'voice'
-  channels: VoiceChannel[] | TextChannel[] | undefined
+  channels: TextChannel[] | VoiceChannel[] | undefined
+  onSelectChannel: OnSelectTextChannel | OnSelectVoiceChannel
 }
-export default function ChannelLinkCollapsable({ type, channels }: PropType) {
+export default function ChannelLinkCollapsable({
+  type,
+  channels,
+  onSelectChannel,
+}: PropType) {
   const [isOpen, setIsOpen] = useState<boolean>(true)
   return (
     <div>
@@ -15,7 +21,11 @@ export default function ChannelLinkCollapsable({ type, channels }: PropType) {
       {!(channels && isOpen)
         ? null
         : channels.map((channel) => (
-            <ChannelLink type={type} channel={channel} />
+            <ChannelLink
+              type={type}
+              channel={channel}
+              onSelectChannel={onSelectChannel}
+            />
           ))}
     </div>
   )
@@ -23,11 +33,15 @@ export default function ChannelLinkCollapsable({ type, channels }: PropType) {
 
 type ChannelPropType = {
   type: 'text' | 'voice'
-  channel: VoiceChannel | TextChannel
+  channel: TextChannel | VoiceChannel
+  onSelectChannel: OnSelectTextChannel | OnSelectVoiceChannel
 }
-function ChannelLink({ type, channel }: ChannelPropType) {
+function ChannelLink({ type, channel, onSelectChannel }: ChannelPropType) {
+  function handleChannelClick(channelId: string) {
+    onSelectChannel(channelId)
+  }
   return (
-    <div>
+    <div onClick={() => handleChannelClick(channel.id)}>
       {type === 'text' ? '#️⃣' : type === 'voice' ? '🔊' : ''} {channel.name}
     </div>
   )

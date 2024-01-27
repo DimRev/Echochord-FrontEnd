@@ -1,11 +1,11 @@
 import { useState } from 'react'
-import { OnSelectedServer } from '../../pages/ChatPage'
+import { OnSelectServer } from '../../pages/ChatPage'
 
 type PropType = {
   serverId: string
   imgUrl?: string
   name: string
-  onSelectServer: OnSelectedServer
+  onSelectServer: OnSelectServer
 }
 export default function ServerAvatar({
   serverId,
