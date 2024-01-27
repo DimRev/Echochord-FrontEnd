@@ -1,10 +1,12 @@
 import { useEffect, useState } from 'react'
 import ChatSection from '../cmps/ChatSection'
-import RoomSideBar from '../cmps/RoomSideBar'
+import ChannelSideBar from '../cmps/ChannelSideBar'
 import ServerSideBar from '../cmps/ServerSideBar'
 import { SelectedServerContext } from '../context/SelectedServerContext'
 import { Server, serverService } from '../services/api/server.service'
 import { ServersContexts } from '../context/ServersContext'
+
+export type OnSelectedServer = (serverId: string) => void
 
 export default function ChatPage() {
   const [servers, setServers] = useState<Server[] | null>(null)
@@ -14,7 +16,7 @@ export default function ChatPage() {
     loadServers()
   }, [])
 
-  async function loadServers() {
+  async function loadServers(): Promise<void> {
     const servers = await serverService.getServers()
     try {
       setServers(servers)
@@ -23,12 +25,17 @@ export default function ChatPage() {
     }
   }
 
+  function onSelectServer(serverId: string): void {
+    const server = servers?.find((server) => server._id === serverId)
+    if (server) setSelectedServer(server)
+  }
+
   return (
     <section className="page chat-page">
       <ServersContexts.Provider value={servers}>
-        <ServerSideBar />
+        <ServerSideBar onSelectServer={onSelectServer} />
         <SelectedServerContext.Provider value={selectedServer}>
-          <RoomSideBar />
+          <ChannelSideBar />
           <ChatSection />
         </SelectedServerContext.Provider>
       </ServersContexts.Provider>
