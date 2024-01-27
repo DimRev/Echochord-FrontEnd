@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { OnSelectServer } from '../../pages/ChatPage'
+import { NavLink } from 'react-router-dom'
 
 type PropType = {
   serverId: string
@@ -49,11 +50,13 @@ export default function ServerAvatar({
     <div
       className={`server-avatar ${isActive() ? 'active' : ''}`}
       onClick={() => onSelectServer(serverId)}>
-      {imgUrl && isLoaded ? (
-        <img src={imgUrl} alt={name} />
-      ) : (
-        <span>{getAbbreviation(name)}</span>
-      )}
+      <NavLink to={`/${serverId}`}>
+        {imgUrl && isLoaded ? (
+          <img src={imgUrl} alt={name} />
+        ) : (
+          <span>{getAbbreviation(name)}</span>
+        )}
+      </NavLink>
     </div>
   )
 }
