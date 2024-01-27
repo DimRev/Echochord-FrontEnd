@@ -1,18 +1,23 @@
 import { useContext } from 'react'
-import { ServersContexts } from '../context/ServersContext'
+import { ServersContext, ServersContextType } from '../context/ServersContext'
 import ServerAvatar from './ui/ServerAvatar'
 
 import { OnSelectServer } from '../pages/ChatPage'
 import { Server } from '../services/api/server.service'
-import { SelectedServerContext } from '../context/SelectedServerContext'
+import {
+  SelectedServerContext,
+  SelectedServerContextType,
+} from '../context/SelectedServerContext'
 
 type PropType = {
   onSelectServer: OnSelectServer
 }
 
 export default function ServerSideBar({ onSelectServer }: PropType) {
-  const servers: Server[] | null = useContext(ServersContexts)
-  const selectedServer: Server | null = useContext(SelectedServerContext)
+  const { servers } = useContext(ServersContext) as ServersContextType
+  const { selectedServer } = useContext(
+    SelectedServerContext,
+  ) as SelectedServerContextType
 
   return (
     <section className="server-sidebar">

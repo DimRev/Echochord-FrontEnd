@@ -1,6 +1,8 @@
 import { useContext } from 'react'
-import { Server } from '../services/api/server.service'
-import { SelectedServerContext } from '../context/SelectedServerContext'
+import {
+  SelectedServerContext,
+  SelectedServerContextType,
+} from '../context/SelectedServerContext'
 import ChannelLinksCollapsable from './ui/ChannelLinkCollapsable'
 import { OnSelectTextChannel, OnSelectVoiceChannel } from '../pages/ChatPage'
 import ChevronDownIcon from './svgs/ChevronDownIcon'
@@ -14,7 +16,9 @@ export default function ChannelSideBar({
   onSelectTextChannel,
   onSelectVoiceChannel,
 }: PropType) {
-  const selectedServer = useContext<Server | null>(SelectedServerContext)
+  const { selectedServer } = useContext(
+    SelectedServerContext,
+  ) as SelectedServerContextType
 
   return (
     <section className="channel-sidebar">
