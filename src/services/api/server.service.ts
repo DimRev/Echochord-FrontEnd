@@ -1,3 +1,5 @@
+import { MiniUser } from './user.service'
+
 export type Server = {
   _id: string
   name: string
@@ -25,12 +27,6 @@ type ChatMsg = {
   user: MiniUser
 }
 
-type MiniUser = {
-  _id: string
-  username: string
-  imgUrl: string
-}
-
 import { storageService } from '../helpers/async-storage.service'
 // import { httpService } from '../helpers/http.service'
 export const serverService = {
@@ -48,9 +44,22 @@ const DB_KEY = 'serverDB'
 // ! CHECK BACKEND FOR COMPLETABLE REST METHODS FOR HTTP SERVICE ! //
 
 const demoData: Server[] = [
-  { _id: 'i101', name: 'Server 1', voiceRoom: [], chatRooms: [], },
-  { _id: 'i102', name: 'Server 2', voiceRoom: [], chatRooms: [], },
-  { _id: 'i103', name: 'Server 3', voiceRoom: [], chatRooms: [], }
+  {
+    _id: 's101', name: 'Server 1', voiceRoom: [
+      { id: "vr101", name: 'Voice Room 1' },
+      { id: "vr102", name: 'Voice Room 2' },
+      { id: "vr103", name: 'Voice Room 3' },
+    ], chatRooms: [{
+      id: 'cr101', name: 'Chat Room 1', chatMsgs: [
+        { id: 'msg101', createdAt: new Date(), msg: 'This is message 1', user: { _id: 'u101', imgUrl: 'imgUrl', username: 'testUser' } },
+        { id: 'msg102', createdAt: new Date(), msg: 'This is message 2', user: { _id: 'u102', imgUrl: 'imgUrl', username: 'testUser2' } },
+        { id: 'msg103', createdAt: new Date(), msg: 'This is message 3', user: { _id: 'u101', imgUrl: 'imgUrl', username: 'testUser' } },
+        { id: 'msg104', createdAt: new Date(), msg: 'This is message 4', user: { _id: 'u103', imgUrl: 'imgUrl', username: 'testUser3' } },
+      ]
+    }],
+  },
+  { _id: 's102', name: 'Server 2', voiceRoom: [], chatRooms: [], },
+  { _id: 's103', name: 'Server 3', voiceRoom: [], chatRooms: [], }
 ]
 
 _initDemoData()
