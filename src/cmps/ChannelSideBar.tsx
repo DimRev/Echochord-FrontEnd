@@ -14,6 +14,7 @@ export default function ChannelSideBar({
   onSelectVoiceChannel,
 }: PropType) {
   const selectedServer = useContext<Server | null>(SelectedServerContext)
+
   return (
     <section className="room-sidebar">
       <ChannelLinksCollapsable

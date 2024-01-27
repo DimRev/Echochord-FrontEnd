@@ -13,6 +13,7 @@ type PropType = {
 export default function ServerSideBar({ onSelectServer }: PropType) {
   const servers: Server[] | null = useContext(ServersContexts)
   const selectedServer: Server | null = useContext(SelectedServerContext)
+
   return (
     <section className="server-sidebar">
       {servers?.map((server, idx) => (

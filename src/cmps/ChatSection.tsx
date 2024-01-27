@@ -6,6 +6,7 @@ type PropType = {
 }
 export default function ChatSection({ selectedTextChannel }: PropType) {
   if (selectedTextChannel === null) return <></>
+
   return (
     <section className="channel-section">
       <section className="channel-title">
