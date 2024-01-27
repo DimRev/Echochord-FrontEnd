@@ -8,7 +8,7 @@ import {
   SelectedServerContext,
   SelectedServerContextType,
 } from '../context/SelectedServerContext'
-import { Outlet, useParams } from 'react-router-dom'
+import { Outlet, useNavigate, useParams } from 'react-router-dom'
 import { SelectedChannelContext } from '../context/SelectedChannelContext'
 import { ServersContext, ServersContextType } from '../context/ServersContext'
 
@@ -24,6 +24,8 @@ export default function ChatPage() {
   const { setSelectedServer } = useContext(
     SelectedServerContext,
   ) as SelectedServerContextType
+
+  const navigate = useNavigate()
 
   const { servers } = useContext(ServersContext) as ServersContextType
   const { serverId, channelId } = useParams()
@@ -48,9 +50,14 @@ export default function ChatPage() {
     channelId: string | undefined,
   ): TextChannel | undefined {
     const server = servers?.find((server) => server._id === serverId)
-    const textChannel = server?.textChannels.find(
-      (textChannel) => textChannel.id === channelId,
-    )
+    let textChannel
+    if (channelId) {
+      textChannel = server?.textChannels.find(
+        (textChannel) => textChannel.id === channelId,
+      )
+    } else if (server?.textChannels[0]) {
+      navigate(`/${server?._id}/${server?.textChannels[0].id}`)
+    }
     return textChannel
   }
 
