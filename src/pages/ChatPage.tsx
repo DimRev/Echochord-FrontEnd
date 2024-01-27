@@ -1,9 +1,7 @@
 import { useContext, useState } from 'react'
 import ChannelChatSection from '../cmps/ChannelSection'
 import ChannelSideBar from '../cmps/ChannelSideBar'
-import ServerSideBar from '../cmps/ServerSideBar'
 import { TextChannel, VoiceChannel } from '../services/api/server.service'
-import { ServersContext, ServersContextType } from '../context/ServersContext'
 import {
   SelectedServerContext,
   SelectedServerContextType,
@@ -19,15 +17,9 @@ export default function ChatPage() {
   const [selectedVoiceChannel, setSelectedVoiceChannel] =
     useState<VoiceChannel | null>(null)
 
-  const { servers } = useContext(ServersContext) as ServersContextType
-  const { selectedServer, setSelectedServer } = useContext(
+  const { selectedServer } = useContext(
     SelectedServerContext,
   ) as SelectedServerContextType
-
-  function onSelectServer(serverId: string): void {
-    const server = servers?.find((server) => server._id === serverId)
-    if (server) setSelectedServer(server)
-  }
 
   function onSelectTextChannel(TextChannelId: string): void {
     const textChannel = selectedServer?.textChannels.find(
@@ -45,7 +37,6 @@ export default function ChatPage() {
 
   return (
     <section className="page chat-page">
-      <ServerSideBar onSelectServer={onSelectServer} />
       <ChannelSideBar
         onSelectTextChannel={onSelectTextChannel}
         onSelectVoiceChannel={onSelectVoiceChannel}
