@@ -4,6 +4,7 @@ import { Route, Routes, BrowserRouter as Router } from 'react-router-dom'
 import { Server, serverService } from './services/api/server.service'
 import { SelectedServerContext } from './context/SelectedServerContext'
 import { ServersContext } from './context/ServersContext'
+import ServerSideBar from './cmps/ServerSideBar'
 
 function App() {
   const [servers, setServers] = useState<Server[] | null>(null)
@@ -23,16 +24,19 @@ function App() {
   }
 
   return (
-    <ServersContext.Provider value={{ servers, setServers }}>
-      <SelectedServerContext.Provider
-        value={{ selectedServer, setSelectedServer }}>
-        <Router>
-          <Routes>
-            <Route path="/" element={<ChatPage />}></Route>
-          </Routes>
-        </Router>
-      </SelectedServerContext.Provider>
-    </ServersContext.Provider>
+    <section className="app">
+      <ServersContext.Provider value={{ servers, setServers }}>
+        <SelectedServerContext.Provider
+          value={{ selectedServer, setSelectedServer }}>
+          <Router>
+            <ServerSideBar />
+            <Routes>
+              <Route path="/" element={<ChatPage />}></Route>
+            </Routes>
+          </Router>
+        </SelectedServerContext.Provider>
+      </ServersContext.Provider>
+    </section>
   )
 }
 
