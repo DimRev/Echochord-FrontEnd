@@ -7,7 +7,7 @@ import HashtagIcon from './svgs/HashtagIcon'
 import ChatMsgPreview from './ui/ChatMsgPreview'
 
 type PropType = {}
-export default function ChannelChatSection({}: PropType) {
+export default function ChannelTextSection({}: PropType) {
   const { selectedTextChannel } = useContext(
     SelectedChannelContext,
   ) as SelectedChannelContextType
