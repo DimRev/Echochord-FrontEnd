@@ -5,6 +5,7 @@ import { Server, serverService } from './services/api/server.service'
 import { SelectedServerContext } from './context/SelectedServerContext'
 import { ServersContext } from './context/ServersContext'
 import ServerSideBar from './cmps/ServerSideBar'
+import ChannelChatSection from './cmps/ChannelSection'
 
 function App() {
   const [servers, setServers] = useState<Server[] | null>(null)
@@ -31,7 +32,13 @@ function App() {
           <Router>
             <ServerSideBar />
             <Routes>
-              <Route path="/" element={<ChatPage />}></Route>
+              <Route path="/" element={<ChatPage />}>
+                <Route index path="/" element={<ChannelChatSection />}></Route>
+                <Route
+                  index
+                  path="/:serverId"
+                  element={<ChannelChatSection />}></Route>
+              </Route>
             </Routes>
           </Router>
         </SelectedServerContext.Provider>

@@ -1,11 +1,17 @@
-import { useContext, useState } from 'react'
-import ChannelChatSection from '../cmps/ChannelSection'
+import { useContext, useEffect, useState } from 'react'
 import ChannelSideBar from '../cmps/ChannelSideBar'
-import { TextChannel, VoiceChannel } from '../services/api/server.service'
+import {
+  Server,
+  TextChannel,
+  VoiceChannel,
+} from '../services/api/server.service'
 import {
   SelectedServerContext,
   SelectedServerContextType,
 } from '../context/SelectedServerContext'
+import { Outlet, useParams } from 'react-router-dom'
+import { SelectedChannelContext } from '../context/SelectedChannelContext'
+import { ServersContext, ServersContextType } from '../context/ServersContext'
 
 export type OnSelectServer = (serverId: string) => void
 export type OnSelectTextChannel = (channelId: string) => void
@@ -16,10 +22,23 @@ export default function ChatPage() {
     useState<TextChannel | null>(null)
   const [selectedVoiceChannel, setSelectedVoiceChannel] =
     useState<VoiceChannel | null>(null)
-
-  const { selectedServer } = useContext(
+  const { selectedServer, setSelectedServer } = useContext(
     SelectedServerContext,
   ) as SelectedServerContextType
+  const { servers } = useContext(ServersContext) as ServersContextType
+
+  const { serverId } = useParams()
+  useEffect(() => {
+    const server = getServerByServerId(serverId)
+    if (server) setSelectedServer(server)
+  }, [serverId, servers])
+
+  function getServerByServerId(
+    serverId: string | undefined,
+  ): Server | undefined {
+    const server = servers?.find((server) => server._id === serverId)
+    return server
+  }
 
   function onSelectTextChannel(TextChannelId: string): void {
     const textChannel = selectedServer?.textChannels.find(
@@ -37,11 +56,19 @@ export default function ChatPage() {
 
   return (
     <section className="page chat-page">
-      <ChannelSideBar
-        onSelectTextChannel={onSelectTextChannel}
-        onSelectVoiceChannel={onSelectVoiceChannel}
-      />
-      <ChannelChatSection selectedTextChannel={selectedTextChannel} />
+      <SelectedChannelContext.Provider
+        value={{
+          selectedTextChannel,
+          selectedVoiceChannel,
+          setSelectedTextChannel,
+          setSelectedVoiceChannel,
+        }}>
+        <ChannelSideBar
+          onSelectTextChannel={onSelectTextChannel}
+          onSelectVoiceChannel={onSelectVoiceChannel}
+        />
+        <Outlet />
+      </SelectedChannelContext.Provider>
     </section>
   )
 }

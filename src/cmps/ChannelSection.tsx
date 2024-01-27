@@ -1,11 +1,16 @@
-import { TextChannel } from '../services/api/server.service'
+import { useContext } from 'react'
+import {
+  SelectedChannelContext,
+  SelectedChannelContextType,
+} from '../context/SelectedChannelContext'
 import HashtagIcon from './svgs/HashtagIcon'
 import ChatMsgPreview from './ui/ChatMsgPreview'
 
-type PropType = {
-  selectedTextChannel: TextChannel | null
-}
-export default function ChannelChatSection({ selectedTextChannel }: PropType) {
+type PropType = {}
+export default function ChannelChatSection({}: PropType) {
+  const { selectedTextChannel } = useContext(
+    SelectedChannelContext,
+  ) as SelectedChannelContextType
   if (selectedTextChannel === null) return <></>
 
   return (
