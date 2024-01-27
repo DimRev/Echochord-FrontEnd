@@ -1,10 +1,15 @@
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import { TextChannel, VoiceChannel } from '../../services/api/server.service'
 import { OnSelectTextChannel, OnSelectVoiceChannel } from '../../pages/ChatPage'
 import HashtagIcon from '../svgs/HashtagIcon'
 import SpeakerIcon from '../svgs/SpeakerIcon'
 import ChevronDownIcon from '../svgs/ChevronDownIcon'
 import ChevronRightIcon from '../svgs/ChevronRightIcon'
+import { NavLink } from 'react-router-dom'
+import {
+  SelectedServerContext,
+  SelectedServerContextType,
+} from '../../context/SelectedServerContext'
 
 type PropType = {
   type: 'text' | 'voice'
@@ -48,18 +53,23 @@ function ChannelLink({ type, channel, onSelectChannel }: ChannelPropType) {
   function handleChannelClick(channelId: string) {
     onSelectChannel(channelId)
   }
+  const { selectedServer } = useContext(
+    SelectedServerContext,
+  ) as SelectedServerContextType
   return (
     <article
       className="channel-link"
       onClick={() => handleChannelClick(channel.id)}>
-      {type === 'text' ? (
-        <HashtagIcon />
-      ) : type === 'voice' ? (
-        <SpeakerIcon />
-      ) : (
-        ''
-      )}{' '}
-      {channel.name}
+      <NavLink to={`/${selectedServer?._id}/${channel.id}`}>
+        {type === 'text' ? (
+          <HashtagIcon />
+        ) : type === 'voice' ? (
+          <SpeakerIcon />
+        ) : (
+          ''
+        )}{' '}
+        {channel.name}
+      </NavLink>
     </article>
   )
 }
