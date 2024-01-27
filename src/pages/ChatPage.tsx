@@ -1,5 +1,4 @@
 import { useContext, useEffect, useState } from 'react'
-import ChannelSideBar from '../cmps/ChannelSideBar'
 import {
   Server,
   TextChannel,
@@ -22,16 +21,21 @@ export default function ChatPage() {
     useState<TextChannel | null>(null)
   const [selectedVoiceChannel, setSelectedVoiceChannel] =
     useState<VoiceChannel | null>(null)
-  const { selectedServer, setSelectedServer } = useContext(
+  const { setSelectedServer } = useContext(
     SelectedServerContext,
   ) as SelectedServerContextType
-  const { servers } = useContext(ServersContext) as ServersContextType
 
-  const { serverId } = useParams()
+  const { servers } = useContext(ServersContext) as ServersContextType
+  const { serverId, channelId } = useParams()
+
   useEffect(() => {
     const server = getServerByServerId(serverId)
-    if (server) setSelectedServer(server)
-  }, [serverId, servers])
+    const textChannel = getTextChannelById(channelId)
+    if (server && serverId) setSelectedServer(server)
+    else setSelectedServer(null)
+    if (textChannel && channelId) setSelectedTextChannel(textChannel)
+    else setSelectedTextChannel(null)
+  }, [serverId, channelId, servers])
 
   function getServerByServerId(
     serverId: string | undefined,
@@ -40,18 +44,14 @@ export default function ChatPage() {
     return server
   }
 
-  function onSelectTextChannel(TextChannelId: string): void {
-    const textChannel = selectedServer?.textChannels.find(
-      (textChannel) => textChannel.id === TextChannelId,
+  function getTextChannelById(
+    channelId: string | undefined,
+  ): TextChannel | undefined {
+    const server = servers?.find((server) => server._id === serverId)
+    const textChannel = server?.textChannels.find(
+      (textChannel) => textChannel.id === channelId,
     )
-    if (textChannel) setSelectedTextChannel(textChannel)
-  }
-
-  function onSelectVoiceChannel(VoiceChannelId: string): void {
-    const voiceChannel = selectedServer?.voiceChannels.find(
-      (voiceChannel) => voiceChannel.id === VoiceChannelId,
-    )
-    if (voiceChannel) setSelectedVoiceChannel(voiceChannel)
+    return textChannel
   }
 
   return (
@@ -63,10 +63,6 @@ export default function ChatPage() {
           setSelectedTextChannel,
           setSelectedVoiceChannel,
         }}>
-        <ChannelSideBar
-          onSelectTextChannel={onSelectTextChannel}
-          onSelectVoiceChannel={onSelectVoiceChannel}
-        />
         <Outlet />
       </SelectedChannelContext.Provider>
     </section>
