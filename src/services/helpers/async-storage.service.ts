@@ -22,7 +22,7 @@ function query(entityType: string, delay: number = 300): Promise<Entity[]> {
 
 async function get(entityType: string, entityId: string): Promise<Entity> {
   const entities = await query(entityType)
-  const entity = entities.find((currEntity) => (currEntity._id = entityId))
+  const entity = entities.find((currEntity) => (currEntity._id === entityId))
   if (!entity)
     throw new Error(
       `Could not find entityId: [${entityId}], in collection: [${entityType}]`,
