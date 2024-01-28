@@ -1,0 +1,34 @@
+.loggedin-user-shield {
+  background-color: #232428;
+  height: 100%;
+  display: grid;
+  grid-template-columns: 36px auto auto;
+  .user-logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .user-details {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 0;
+    & > * {
+      line-height: 1rem;
+    }
+  }
+  .user-btns {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    & > * {
+      cursor: pointer;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      &:hover {
+        color: var(--content-highlight);
+      }
+    }
+  }
+}
