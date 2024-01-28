@@ -2,15 +2,60 @@
   background-color: var(--background);
   padding: 8px 0;
 
+  display: grid;
+  grid-template-rows: 24px 1fr auto;
+
   .channel-chat-header {
     color: var(--content-highlight);
-    height: 24px;
     display: flex;
     align-items: center;
     padding: 0 8px;
     border-bottom: 1px solid black;
+
+    .chat-msgs {
+    }
+
     .svg-icon {
       color: var(--content-regular);
+    }
+  }
+
+  .chat-input-section {
+    width: 100%;
+    .text-input {
+      display: grid;
+      grid-template-columns: auto auto auto;
+      grid-auto-rows: 36px;
+      justify-content: center;
+      margin: 0.5rem 1rem;
+    }
+    .left-container {
+      background-color: var(--foreground);
+      width: 36px;
+
+      border-top-left-radius: 8px;
+      border-bottom-left-radius: 8px;
+    }
+    .right-container {
+      background-color: var(--foreground);
+      width: calc(36px * 4);
+
+      border-top-right-radius: 8px;
+      border-bottom-right-radius: 8px;
+    }
+    input[type='text'] {
+      background-color: var(--foreground);
+
+      width: clamp(200px, calc(75cqw - 50px - 200px), 1200px);
+
+      border: none;
+      caret-color: var(--content-highlight);
+      &:focus {
+        border: none;
+        outline: none;
+      }
+      &::placeholder {
+      }
     }
   }
 }
