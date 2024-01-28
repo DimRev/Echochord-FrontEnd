@@ -3,7 +3,7 @@
   padding: 8px 0;
 
   display: grid;
-  grid-template-rows: 24px 1fr auto;
+  grid-template-rows: $title-height 1fr auto;
 
   .channel-chat-header {
     color: var(--content-highlight);
@@ -27,34 +27,61 @@
       grid-template-columns: auto auto auto;
       grid-auto-rows: 36px;
       justify-content: center;
-      margin: 0.5rem 1rem;
+      margin: 8px 16px;
     }
-    .left-container {
+    .container {
       background-color: var(--foreground);
-      width: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: space-evenly;
+      & .icon-wrapper {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        &:not(.plus-icon-wrapper, .emoji-icon-wrapper):hover {
+          color: var(--content-highlight);
+        }
 
-      border-top-left-radius: 8px;
-      border-bottom-left-radius: 8px;
-    }
-    .right-container {
-      background-color: var(--foreground);
-      width: calc(36px * 4);
-
-      border-top-right-radius: 8px;
-      border-bottom-right-radius: 8px;
+        &.plus-icon-wrapper {
+          background-color: var(--content-regular);
+          color: var(--foreground);
+          border-radius: 50%;
+          & > * {
+            padding: 2px;
+          }
+          &:hover {
+            background-color: var(--content-highlight);
+          }
+        }
+        &.emoji-icon-wrapper {
+          color: yellow;
+        }
+      }
+      &.left-container {
+        width: $input-button-size;
+        border-top-left-radius: 8px;
+        border-bottom-left-radius: 8px;
+      }
+      &.right-container {
+        width: calc($input-button-size * 4);
+        border-top-right-radius: 8px;
+        border-bottom-right-radius: 8px;
+      }
     }
     input[type='text'] {
       background-color: var(--foreground);
 
-      width: clamp(200px, calc(75cqw - 50px - 200px), 1200px);
+      width: calc(
+        100vw - $outer-sidebar-width - $inner-sidebar-width -
+          ($input-button-size * 6)
+      );
+      color: var(--content-highlight);
 
       border: none;
       caret-color: var(--content-highlight);
       &:focus {
         border: none;
         outline: none;
-      }
-      &::placeholder {
       }
     }
   }
