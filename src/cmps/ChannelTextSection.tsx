@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import React, { useContext } from 'react'
 import {
   SelectedChannelContext,
   SelectedChannelContextType,
@@ -6,6 +6,7 @@ import {
 import HashtagIcon from './svgs/HashtagIcon'
 import ChatMsgPreview from './ui/ChatMsgPreview'
 import ChatTextInput from './ui/ChatTextInput'
+import ChatMsgPartition from './ui/ChatMsgPartition'
 
 type PropType = {}
 export default function ChannelTextSection({}: PropType) {
@@ -22,7 +23,10 @@ export default function ChannelTextSection({}: PropType) {
       </header>
       <section className="chat-msgs">
         {selectedTextChannel.chatMsgs.map((msg, idx) => (
-          <ChatMsgPreview key={idx} msg={msg} />
+          <React.Fragment key={idx}>
+            <ChatMsgPartition msgs={selectedTextChannel.chatMsgs} msg={msg} />
+            <ChatMsgPreview msg={msg} />
+          </React.Fragment>
         ))}
       </section>
       <section className="chat-input-section">
