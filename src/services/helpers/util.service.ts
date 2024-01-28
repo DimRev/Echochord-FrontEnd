@@ -66,21 +66,28 @@ function getRandomInt(min: number, max: number, inclusive: boolean = false): num
 function getTimeDifference(timestamp: Date): string {
   const now = new Date();
   const previousDate = new Date(timestamp);
-  const timeDifference = now.getTime() - previousDate.getTime();
+  const timeDifferenceInMilliseconds = now.getTime() - previousDate.getTime();
 
-  const dateDiff = now.getDate() - previousDate.getDate();
+  const daysDifference = Math.floor(timeDifferenceInMilliseconds / (1000 * 60 * 60 * 24));
 
-  const seconds = Math.floor(timeDifference / 1000)
-  const minutes = Math.floor(seconds / 60)
-  const hours = Math.floor(minutes / 60)
-  const days = Math.floor(hours / 24)
+  const hours = Math.floor(timeDifferenceInMilliseconds / (1000 * 60 * 60) % 24);
+  const minutes = Math.floor(timeDifferenceInMilliseconds / (1000 * 60) % 60);
 
-  if (hours < 24 && dateDiff < 1) {
-    return `Today ${previousDate.getHours()}:${previousDate.getMinutes()}`
-  } else if (days < 2 && dateDiff === 1) {
-    return `Yesterday ${previousDate.getHours()}:${previousDate.getMinutes()}`
+  const formattedTime = previousDate.toLocaleTimeString('en-US', {
+    hour: '2-digit',
+    minute: '2-digit'
+  });
+
+  if (daysDifference === 0) {
+    return `Today at ${formattedTime}`;
+  } else if (daysDifference === 1) {
+    return `Yesterday at ${formattedTime}`;
   } else {
-    return `${previousDate.getDay()}/${previousDate.getMonth() + 1}/${previousDate.getFullYear()} ${previousDate.getHours()}:${previousDate.getMinutes()}`
+    return previousDate.toLocaleDateString('en-US', {
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric'
+    }) + ' ' + formattedTime;
   }
 }
 
