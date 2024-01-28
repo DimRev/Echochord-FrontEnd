@@ -1,3 +1,12 @@
+// Constant sizes
+$outer-sidebar-width: 50px;
+$inner-sidebar-width: 200px;
+$title-height: 24px;
+$input-button-size: 36px;
+
+//
+
+
 :root {
   /* spacing */
   --spacing-unit: 8px;
@@ -40,6 +49,7 @@
   --tablet-spacing: 60px;
   --laptop-spacing: 120px;
   --desktop-spacing: 165px;
+
 
   /* Constant Sizes */
   --header-height: 48px;
