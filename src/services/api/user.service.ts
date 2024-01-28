@@ -3,6 +3,7 @@ export type User = {
   username: string
   imgUrl: string
   email: string
+  status: 'online' | 'idle' | 'do-not-disturb' | 'invisible'
 }
 
 export type MiniUser = Pick<User, '_id' | 'username' | 'imgUrl'>
@@ -27,10 +28,11 @@ const DB_KEY = 'userDB'
 // ! CHECK BACKEND FOR COMPLETABLE REST METHODS FOR HTTP SERVICE ! //
 
 const demoData: User[] = [
-  { _id: 'u101', username: 'testUser', email: 'testUser@gmail.com', imgUrl: 'imgUrl' },
-  { _id: 'u102', username: 'testUser2', email: 'testUser2@gmail.com', imgUrl: 'imgUrl2' },
-  { _id: 'u103', username: 'testUser3', email: 'testUser3@gmail.com', imgUrl: 'imgUrl3' },
-  { _id: 'u104', username: 'testUser4', email: 'testUser4@gmail.com', imgUrl: 'imgUrl4' },
+  { _id: 'u101', username: 'testUser', email: 'testUser@gmail.com', imgUrl: 'imgUrl', status: 'online' },
+  { _id: 'u102', username: 'testUser2', email: 'testUser2@gmail.com', imgUrl: 'imgUrl2', status: 'online' },
+  { _id: 'u103', username: 'testUser3', email: 'testUser3@gmail.com', imgUrl: 'imgUrl3', status: 'online' },
+  { _id: 'u104', username: 'testUser4', email: 'testUser4@gmail.com', imgUrl: 'imgUrl4', status: 'online' },
+  { _id: 'u105', username: 'Dima Revelson', email: 'Dimarev444@gmail.com', imgUrl: '/src/assets/imgs/u105UserImg.png', status: 'online' },
 ]
 
 _initDemoData()
@@ -71,5 +73,6 @@ function getEmptyUser(): NewUser {
     username: '',
     imgUrl: '',
     email: '',
+    status: 'online'
   }
 }
