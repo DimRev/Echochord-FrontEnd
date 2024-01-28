@@ -9,15 +9,20 @@
 @import './base/base';
 
 // cmps
-@import './cmps/toastMsg';
+//channel cmps
 @import './cmps/channelChatSection';
 @import './cmps/channelLinkCollapsable';
 @import './cmps/channelSidebar';
+//server cmps
 @import './cmps/serverAvatar';
 @import './cmps/serverSidebar';
+//chat cmps
 @import './cmps/chatMsgCard';
+@import './cmps/chatMsgPartition';
+//primitive ui cmps
 @import './cmps/loggedinUserShield';
 @import './cmps/userAvatar';
+@import './cmps/toastMsg';
 
 // pages
 @import './pages/chatPage';
