@@ -10,6 +10,7 @@ import {
   SelectedChannelContextType,
 } from '../context/SelectedChannelContext'
 import { Outlet } from 'react-router-dom'
+import LoggedinUserShield from './ui/LoggedinUserShield'
 
 type PropType = {}
 
@@ -42,16 +43,21 @@ export default function ServerMainSection({}: PropType) {
         <header className="channel-sidebar-header">
           <span>{selectedServer?.name}</span> <ChevronDownIcon />
         </header>
-        <ChannelLinksCollapsable
-          type={'text'}
-          channels={selectedServer?.textChannels}
-          onSelectChannel={onSelectTextChannel}
-        />
-        <ChannelLinksCollapsable
-          type={'voice'}
-          channels={selectedServer?.voiceChannels}
-          onSelectChannel={onSelectVoiceChannel}
-        />
+        <main className="channel-sidebar-content">
+          <ChannelLinksCollapsable
+            type={'text'}
+            channels={selectedServer?.textChannels}
+            onSelectChannel={onSelectTextChannel}
+          />
+          <ChannelLinksCollapsable
+            type={'voice'}
+            channels={selectedServer?.voiceChannels}
+            onSelectChannel={onSelectVoiceChannel}
+          />
+        </main>
+        <footer className="channel-sidebar-footer">
+          <LoggedinUserShield />
+        </footer>
       </section>
       <Outlet />
     </>
