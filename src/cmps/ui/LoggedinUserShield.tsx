@@ -9,7 +9,7 @@ export default function LoggedinUserShield() {
   return (
     <div className="loggedin-user-shield">
       <div className="user-logo">
-        <UserAvatar username={username} />
+        <UserAvatar username={username} imgUrl="" />
       </div>
       <div className="user-details">
         <span>{username}</span>
