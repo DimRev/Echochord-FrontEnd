@@ -1,6 +1,22 @@
 .channel-links-collapsable {
   .expend-btn {
+    display: flex;
+    align-items: center;
+    gap: 4px;
   }
   .channel-link {
+    margin: 2px 8px;
+
+    .nav-link {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    &:has(.active) {
+      color: var(--content-highlight);
+      background-color: #ffffff22;
+      border-radius: 4px;
+    }
   }
 }

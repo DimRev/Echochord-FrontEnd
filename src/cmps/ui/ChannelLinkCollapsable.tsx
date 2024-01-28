@@ -60,7 +60,9 @@ function ChannelLink({ type, channel, onSelectChannel }: ChannelPropType) {
     <article
       className="channel-link"
       onClick={() => handleChannelClick(channel.id)}>
-      <NavLink to={`/${selectedServer?._id}/${channel.id}`}>
+      <NavLink
+        to={`/${selectedServer?._id}/${channel.id}`}
+        className={'nav-link'}>
         {type === 'text' ? (
           <HashtagIcon />
         ) : type === 'voice' ? (
