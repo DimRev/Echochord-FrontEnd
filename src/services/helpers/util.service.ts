@@ -68,15 +68,17 @@ function getTimeDifference(timestamp: Date): string {
   const previousDate = new Date(timestamp);
   const timeDifference = now.getTime() - previousDate.getTime();
 
+  const dateDiff = now.getDate() - previousDate.getDate();
+
   const seconds = Math.floor(timeDifference / 1000)
   const minutes = Math.floor(seconds / 60)
   const hours = Math.floor(minutes / 60)
   const days = Math.floor(hours / 24)
 
-  if (days <= 1) {
+  if (hours < 24 && dateDiff < 1) {
     return `Today ${previousDate.getHours()}:${previousDate.getMinutes()}`
-  } else if (days <= 2) {
-    return `Yesterday ${previousDate.getTime()} ${previousDate.getHours()}:${previousDate.getMinutes()}`
+  } else if (days < 2 && dateDiff === 1) {
+    return `Yesterday ${previousDate.getHours()}:${previousDate.getMinutes()}`
   } else {
     return `${previousDate.getDay()}/${previousDate.getMonth() + 1}/${previousDate.getFullYear()} ${previousDate.getHours()}:${previousDate.getMinutes()}`
   }
