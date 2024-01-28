@@ -11,7 +11,8 @@ export default function UserAvatar({ imgUrl, username }: PropType) {
     const abbreviation = word
       .map((word) => word.charAt(0).toUpperCase())
       .join('')
-    return abbreviation
+    const firstTwoLetters = abbreviation.slice(0, 2)
+    return firstTwoLetters
   }
 
   function loadImage(imgUrl: string | null | undefined): Promise<boolean> {
@@ -32,7 +33,7 @@ export default function UserAvatar({ imgUrl, username }: PropType) {
   })()
 
   return (
-    <div className={`user-avatar`}>
+    <div className="user-avatar">
       <div>
         {imgUrl && isLoaded ? (
           <img src={imgUrl} alt={username} />
