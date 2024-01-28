@@ -68,7 +68,7 @@ button.secondary.active {
   position: relative;
   height: 100dvh;
   display: grid;
-  grid-template-columns: 50px 1fr;
+  grid-template-columns: $outer-sidebar-width 1fr;
 }
 
 .svg-icon {
