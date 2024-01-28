@@ -5,6 +5,7 @@ import {
 } from '../context/SelectedChannelContext'
 import HashtagIcon from './svgs/HashtagIcon'
 import ChatMsgPreview from './ui/ChatMsgPreview'
+import ChatTextInput from './ui/ChatTextInput'
 
 type PropType = {}
 export default function ChannelTextSection({}: PropType) {
@@ -24,7 +25,9 @@ export default function ChannelTextSection({}: PropType) {
           <ChatMsgPreview key={idx} msg={msg} />
         ))}
       </section>
-      <section className="chat-input"></section>
+      <section className="chat-input-section">
+        <ChatTextInput />
+      </section>
     </section>
   )
 }
