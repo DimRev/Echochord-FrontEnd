@@ -1,18 +1,20 @@
 import { useContext, useState } from 'react'
-import { TextChannel, VoiceChannel } from '../../services/api/server.service'
-import { OnSelectTextChannel, OnSelectVoiceChannel } from '../../pages/ChatPage'
+import { NavLink } from 'react-router-dom'
+
 import HashtagIcon from '../svgs/HashtagIcon'
 import SpeakerIcon from '../svgs/SpeakerIcon'
 import ChevronDownIcon from '../svgs/ChevronDownIcon'
 import ChevronRightIcon from '../svgs/ChevronRightIcon'
-import { NavLink } from 'react-router-dom'
+
+import { TextChannel, VoiceChannel } from '../../services/api/server.service'
+import { OnSelectTextChannel, OnSelectVoiceChannel } from '../../pages/ChatPage'
 import {
   SelectedServerContext,
   SelectedServerContextType,
 } from '../../context/SelectedServerContext'
 
 type PropType = {
-  type: 'text' | 'voice'
+  type: 'voice' | 'text'
   channels: TextChannel[] | VoiceChannel[] | undefined
   onSelectChannel: OnSelectTextChannel | OnSelectVoiceChannel
 }

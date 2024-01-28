@@ -1,16 +1,19 @@
 import { useContext } from 'react'
+import { Outlet } from 'react-router-dom'
+
 import {
   SelectedServerContext,
   SelectedServerContextType,
 } from '../context/SelectedServerContext'
-import ChannelLinksCollapsable from './ui/ChannelLinkCollapsable'
-import ChevronDownIcon from './svgs/ChevronDownIcon'
 import {
   SelectedChannelContext,
   SelectedChannelContextType,
 } from '../context/SelectedChannelContext'
-import { Outlet } from 'react-router-dom'
+
+import ChannelLinksCollapsable from './ui/ChannelLinkCollapsable'
 import LoggedinUserShield from './ui/LoggedinUserShield'
+
+import ChevronDownIcon from './svgs/ChevronDownIcon'
 
 type PropType = {}
 

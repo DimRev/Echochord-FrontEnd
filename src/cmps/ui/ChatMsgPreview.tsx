@@ -1,5 +1,5 @@
-import { ChatMsg } from '../../services/api/server.service'
 import { utilService } from '../../services/helpers/util.service'
+import { ChatMsg } from '../../services/api/server.service'
 import UserAvatar from './UserAvatar'
 
 type PropType = {

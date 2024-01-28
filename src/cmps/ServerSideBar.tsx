@@ -1,11 +1,12 @@
 import { useContext } from 'react'
-import { ServersContext, ServersContextType } from '../context/ServersContext'
-import ServerAvatar from './ui/ServerAvatar'
 
 import {
   SelectedServerContext,
   SelectedServerContextType,
 } from '../context/SelectedServerContext'
+import { ServersContext, ServersContextType } from '../context/ServersContext'
+
+import ServerAvatar from './ui/ServerAvatar'
 
 type PropType = {}
 
