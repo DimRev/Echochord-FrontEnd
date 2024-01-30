@@ -13,6 +13,12 @@ export default function ChannelTextSection({}: PropType) {
   const { selectedTextChannel } = useContext(
     SelectedChannelContext,
   ) as SelectedChannelContextType
+
+  // TODO: REFACTOR CODE BELOW TO "ACTION" LIKE EXECUTION
+  async function onSubmitChatMsg(txt: string) {
+    console.log(txt)
+  }
+
   if (selectedTextChannel === null) return <></>
 
   return (
@@ -30,7 +36,7 @@ export default function ChannelTextSection({}: PropType) {
         ))}
       </section>
       <section className="chat-input-section">
-        <ChatTextInput />
+        <ChatTextInput onSubmitChatMsg={onSubmitChatMsg} />
       </section>
     </section>
   )
