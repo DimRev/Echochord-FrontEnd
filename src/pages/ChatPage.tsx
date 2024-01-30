@@ -1,13 +1,11 @@
 import { useContext, useEffect, useState } from 'react'
-import {
-  Server,
-  TextChannel,
-  VoiceChannel,
-} from '../services/api/server.service'
+import { Server, VoiceChannel } from '../services/api/server.service'
 import {
   SelectedServerContext,
   SelectedServerContextType,
 } from '../context/SelectedServerContext'
+import { TextChannel } from '../services/api/textChannel.service'
+
 import { Outlet, useNavigate, useParams } from 'react-router-dom'
 import { SelectedChannelContext } from '../context/SelectedChannelContext'
 import { ServersContext, ServersContextType } from '../context/ServersContext'

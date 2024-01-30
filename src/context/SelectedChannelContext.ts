@@ -1,5 +1,6 @@
 import { createContext } from "react";
-import { TextChannel, VoiceChannel } from "../services/api/server.service";
+import { VoiceChannel } from "../services/api/server.service";
+import { TextChannel } from "../services/api/textChannel.service";
 
 export type SelectedChannelContextType = {
   selectedTextChannel: TextChannel | null
