@@ -1,5 +1,3 @@
-import { MiniUser } from './user.service'
-
 export type Server = {
   _id: string
   name: string
@@ -10,25 +8,15 @@ export type Server = {
 
 type NewServer = Omit<Server, '_id'>
 
-export type TextChannel = {
-  id: string
-  name: string
-  chatMsgs: ChatMsg[]
-}
-
 export type VoiceChannel = {
   id: string
   name: string
 }
 
-export type ChatMsg = {
-  id: string
-  msg: string
-  createdAt: Date
-  user: MiniUser
-}
+
 
 import { storageService } from '../helpers/async-storage.service'
+import { TextChannel } from './textChannel.service'
 // import { httpService } from '../helpers/http.service'
 export const serverService = {
   getServers,
