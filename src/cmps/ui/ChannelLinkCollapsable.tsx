@@ -6,7 +6,9 @@ import SpeakerIcon from '../svgs/SpeakerIcon'
 import ChevronDownIcon from '../svgs/ChevronDownIcon'
 import ChevronRightIcon from '../svgs/ChevronRightIcon'
 
-import { TextChannel, VoiceChannel } from '../../services/api/server.service'
+import { VoiceChannel } from '../../services/api/server.service'
+import { TextChannel } from '../../services/api/textChannel.service'
+
 import { OnSelectTextChannel, OnSelectVoiceChannel } from '../../pages/ChatPage'
 import {
   SelectedServerContext,
