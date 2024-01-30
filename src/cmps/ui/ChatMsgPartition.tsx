@@ -1,4 +1,4 @@
-import { ChatMsg } from '../../services/api/server.service'
+import { ChatMsg } from '../../services/api/ChatMsg.service'
 
 type PropTypes = {
   msgs: ChatMsg[]

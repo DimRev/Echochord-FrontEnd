@@ -10,7 +10,7 @@ import { Server, serverService } from './services/api/server.service'
 
 import ChatPage from './pages/ChatPage'
 import ServerSideBar from './cmps/ServerSideBar'
-import ChannelTextSection from './cmps/ChannelTextSection'
+import ChannelTextSection from './cmps/ChannelMainSection'
 import ServerMainSection from './cmps/ServerMainSection'
 
 function App() {
