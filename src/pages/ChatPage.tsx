@@ -1,7 +1,6 @@
 import { useEffect } from 'react'
 import { loadServers, selectServer } from '../store/actions/server.actions'
 import { selectTextChannel } from '../store/actions/channel.actions'
-import { RootState } from '../store/store'
 import { Outlet, useParams } from 'react-router-dom'
 
 export type OnSelectServer = (serverId: string) => void
