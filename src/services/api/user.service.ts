@@ -20,6 +20,7 @@ export const userService = {
   updateUser,
   deleteUser,
   getEmptyUser,
+  createMiniUser,
 }
 
 const DB_KEY = 'userDB'
@@ -74,5 +75,13 @@ function getEmptyUser(): NewUser {
     imgUrl: '',
     email: '',
     status: 'online'
+  }
+}
+
+export function createMiniUser(user: User): MiniUser {
+  return {
+    _id: user._id,
+    imgUrl: user.imgUrl,
+    username: user.username,
   }
 }
