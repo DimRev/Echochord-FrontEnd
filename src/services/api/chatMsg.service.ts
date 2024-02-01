@@ -6,7 +6,7 @@ import { MiniUser } from "./user.service"
 export type ChatMsg = {
   id: string
   msg: string
-  createdAt: Date
+  createdAt: number
   user: MiniUser
 }
 
