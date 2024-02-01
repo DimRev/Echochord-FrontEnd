@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux'
 import { RootState } from '../store/store'
 import { Server } from '../services/api/server.service'
 import { selectServer } from '../store/actions/server.actions'
+import { selectTextChannel } from '../store/actions/channel.actions'
 
 type PropType = {}
 
@@ -14,8 +15,9 @@ export default function ServerSideBar({}: PropType) {
     (storeState) => storeState.server.selectedServer,
   )
 
-  function onSelectServer(serverId: string): void {
+  function onSelectServer(serverId: string, textChannelId: string): void {
     selectServer(serverId)
+    selectTextChannel(textChannelId)
   }
 
   return (
@@ -25,6 +27,7 @@ export default function ServerSideBar({}: PropType) {
           key={idx}
           serverId={server._id}
           name={server.name}
+          defTextChannelId={server.textChannels[0]?.id}
           imgUrl={server.imgUrl}
           onSelectServer={onSelectServer}
           selectedServerId={selectedServer?._id}

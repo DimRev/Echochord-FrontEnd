@@ -3,7 +3,6 @@ import { loadServers, selectServer } from '../store/actions/server.actions'
 import { selectTextChannel } from '../store/actions/channel.actions'
 import { Outlet, useParams } from 'react-router-dom'
 
-export type OnSelectServer = (serverId: string) => void
 export type OnSelectTextChannel = (channelId: string) => void
 export type OnSelectVoiceChannel = (channelId: string) => void
 

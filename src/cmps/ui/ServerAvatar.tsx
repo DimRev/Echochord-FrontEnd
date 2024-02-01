@@ -1,13 +1,13 @@
 import { useState } from 'react'
-import { OnSelectServer } from '../../pages/ChatPage'
 import { NavLink } from 'react-router-dom'
 
 type PropType = {
   serverId: string
   imgUrl?: string
+  defTextChannelId: string
   name: string
   selectedServerId: string | undefined
-  onSelectServer: OnSelectServer
+  onSelectServer(serverId: string, textChannelId: string): void
 }
 export default function ServerAvatar({
   serverId,
@@ -15,8 +15,10 @@ export default function ServerAvatar({
   name,
   selectedServerId,
   onSelectServer,
+  defTextChannelId,
 }: PropType) {
   const [isLoaded, setIsLoaded] = useState<boolean | null>(null)
+
   function getAbbreviation(name: string): string {
     const word = name.split(' ')
     const abbreviation = word
@@ -49,8 +51,8 @@ export default function ServerAvatar({
   return (
     <div
       className={`server-avatar ${isActive() ? 'active' : ''}`}
-      onClick={() => onSelectServer(serverId)}>
-      <NavLink to={`/${serverId}`}>
+      onClick={() => onSelectServer(serverId, defTextChannelId)}>
+      <NavLink to={`/${serverId}/${defTextChannelId ? defTextChannelId : ''}`}>
         {imgUrl && isLoaded ? (
           <img src={imgUrl} alt={name} />
         ) : (
