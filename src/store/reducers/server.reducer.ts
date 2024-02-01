@@ -1,6 +1,7 @@
-import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { Server, VoiceChannel, serverService } from "../../services/api/server.service";
+import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { Server, VoiceChannel } from "../../services/api/server.service";
 import { TextChannel } from "../../services/api/textChannel.service";
+import { ChatMsg } from "../../services/api/ChatMsg.service";
 
 interface serverState {
   servers: Server[],
@@ -20,10 +21,23 @@ export const serverSlice = createSlice({
   name: 'server',
   initialState,
   reducers: {
+    /*PRELOAD ALL USER'S SERVERS WITH RELEVANT DATA ON THEM
+    - Keep track of where the user had left reading the msgs.
+    - Then give the user his last read msg +- 20 msgs on first load
+    - When user scrolls up/down add the new msgs to the cache
+    - scroll up adds [...new.msgs,...state.msgs]
+    - scroll down adds [state.msgs, new.msgs]
+     */
     SET_SERVERS: (state, action: PayloadAction<Server[]>) => {
       state.servers = action.payload
     },
 
+
+    /*UPON ENTERING A SERVER MAKES A "REFRESH" LOAD
+    - Checks if there were new msgs added in the DB
+    - Adds upto +- 20 msgs to each direction from the last read msg
+    - If user already got +- 20 msgs in cache doesn't go though this action
+    */
     SET_SELECTED_SERVER: (state, action: PayloadAction<string | undefined>) => {
       if (!action.payload) {
         state.selectedServer = null
@@ -31,10 +45,19 @@ export const serverSlice = createSlice({
       }
 
       const selectedServer = state.servers.find(server => server._id === action.payload)
-      if (!selectedServer) throw new Error(`ERROR : ${action.type}, server not found`)
+      if (!selectedServer) {
+        console.error(`ERROR : ${action.type}, server ${action.payload} not found`)
+        return
+      }
+
       state.selectedServer = selectedServer
     },
 
+    /*FOCUSES ON THE SELECTED TEXT CHANNEL
+    - on first load into the text channel,
+    - should activate the socket of the curr channel
+    - keeps getting msgs into it in both directions depending on the user's scroll
+    */
     SET_SELECTED_TEXT_CHANNEL: (state, action: PayloadAction<string | undefined>) => {
       if (!action.payload) {
         state.selectedTextChannel = null
@@ -42,44 +65,54 @@ export const serverSlice = createSlice({
       }
 
       const selectedTextChannel = state.selectedServer?.textChannels.find(channel => channel.id === action.payload)
-      if (selectedTextChannel) return { ...state, selectedTextChannel: selectedTextChannel }
-      return { ...state, selectedTextChannel: null }
-      // if (!state.selectedServer) throw new Error(`ERROR : ${action.type}, no server selected`)
-      // const selectedTextChannel = state.selectedServer.textChannels.find(channel => {
-      //   return channel.id === action.payload
-      // })
-      // if (!selectedTextChannel) throw new Error(`ERROR : ${action.type}, channel not found`)
-      // state.selectedTextChannel = selectedTextChannel
+      if (selectedTextChannel) {
+        state.selectedTextChannel = selectedTextChannel
+        return
+      }
+
+      state.selectedTextChannel = null
     },
 
+    /*JOIN A VOICE CHANNEL
+    - While inside the voice channel the user should still be able to use the chat channels
+    */
     SET_SELECTED_VOICE_CHANNEL: (state, action: PayloadAction<string | undefined>) => {
       if (!action.payload) {
         state.selectedVoiceChannel = null
         return
       }
 
-      if (!state.selectedServer) throw new Error(`ERROR : ${action.type}, no server selected`)
-      const selectedVoiceChannel = state.selectedServer.textChannels.find(channel => {
-        return channel.id === action.payload
-      })
-      if (!selectedVoiceChannel) throw new Error(`ERROR : ${action.type}, channel not found`)
-      state.selectedVoiceChannel = selectedVoiceChannel
+      const selectedVoiceChannel = state.selectedServer?.textChannels.find(channel => channel.id === action.payload)
+      if (selectedVoiceChannel) {
+        state.selectedVoiceChannel = selectedVoiceChannel
+        return
+      }
+
+      state.selectedVoiceChannel = null
     },
+
+    /*  */
+    SUBMIT_CHAT_MSG: (state, action: PayloadAction<ChatMsg>) => {
+      if (!state.selectedTextChannel || !state.selectedServer) {
+        // Debugging msg
+        console.error(`ERROR : ${action.type}, SelectedTextChannel: ${state.selectedTextChannel?.id} | SelectedServer: ${state.selectedServer?._id}`)
+        return
+      }
+
+      state.selectedTextChannel = {
+        ...state.selectedTextChannel,
+        chatMsgs: [...state.selectedTextChannel.chatMsgs, action.payload]
+      }
+    }
   }
-
 })
-
-export const setServersAsync = createAsyncThunk('server/setServersAsync',
-  async () => {
-    const newServers = await serverService.getServers()
-    return newServers
-  })
 
 export const {
   SET_SELECTED_SERVER,
   SET_SELECTED_TEXT_CHANNEL,
   SET_SELECTED_VOICE_CHANNEL,
   SET_SERVERS,
+  SUBMIT_CHAT_MSG,
 } = serverSlice.actions
 
 export default serverSlice.reducer
