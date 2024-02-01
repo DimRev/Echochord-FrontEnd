@@ -7,6 +7,7 @@ import ChatMsgPartition from './ui/ChatMsgPartition'
 import { RootState } from '../store/store'
 import { useSelector } from 'react-redux'
 import { TextChannel } from '../services/api/textChannel.service'
+import { submitChatMsg } from '../store/actions/chat.actions'
 
 type PropType = {}
 export default function ChannelTextSection({}: PropType) {
@@ -17,7 +18,7 @@ export default function ChannelTextSection({}: PropType) {
 
   // TODO: REFACTOR CODE BELOW TO "ACTION" LIKE EXECUTION
   async function onSubmitChatMsg(txt: string) {
-    console.log(txt)
+    submitChatMsg(txt)
   }
 
   if (selectedTextChannel === null) return <></>
