@@ -1,18 +1,19 @@
-import React, { useContext } from 'react'
-import {
-  SelectedChannelContext,
-  SelectedChannelContextType,
-} from '../context/SelectedChannelContext'
+import React from 'react'
+
 import HashtagIcon from './svgs/HashtagIcon'
 import ChatMsgPreview from './ui/ChatMsgPreview'
 import ChatTextInput from './ui/ChatTextInput'
 import ChatMsgPartition from './ui/ChatMsgPartition'
+import { RootState } from '../store/store'
+import { useSelector } from 'react-redux'
+import { TextChannel } from '../services/api/textChannel.service'
 
 type PropType = {}
 export default function ChannelTextSection({}: PropType) {
-  const { selectedTextChannel } = useContext(
-    SelectedChannelContext,
-  ) as SelectedChannelContextType
+  const selectedTextChannel: TextChannel | null = useSelector<
+    RootState,
+    TextChannel | null
+  >((storeState) => storeState.server.selectedTextChannel)
 
   // TODO: REFACTOR CODE BELOW TO "ACTION" LIKE EXECUTION
   async function onSubmitChatMsg(txt: string) {

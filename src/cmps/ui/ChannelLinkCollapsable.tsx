@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react'
+import { useState } from 'react'
 import { NavLink } from 'react-router-dom'
 
 import HashtagIcon from '../svgs/HashtagIcon'
@@ -6,14 +6,12 @@ import SpeakerIcon from '../svgs/SpeakerIcon'
 import ChevronDownIcon from '../svgs/ChevronDownIcon'
 import ChevronRightIcon from '../svgs/ChevronRightIcon'
 
-import { VoiceChannel } from '../../services/api/server.service'
+import { Server, VoiceChannel } from '../../services/api/server.service'
 import { TextChannel } from '../../services/api/textChannel.service'
 
 import { OnSelectTextChannel, OnSelectVoiceChannel } from '../../pages/ChatPage'
-import {
-  SelectedServerContext,
-  SelectedServerContextType,
-} from '../../context/SelectedServerContext'
+import { useSelector } from 'react-redux'
+import { RootState } from '../../store/store'
 
 type PropType = {
   type: 'voice' | 'text'
@@ -57,9 +55,9 @@ function ChannelLink({ type, channel, onSelectChannel }: ChannelPropType) {
   function handleChannelClick(channelId: string) {
     onSelectChannel(channelId)
   }
-  const { selectedServer } = useContext(
-    SelectedServerContext,
-  ) as SelectedServerContextType
+  const selectedServer: Server | null = useSelector<RootState, Server | null>(
+    (storeState) => storeState.server.selectedServer,
+  )
   return (
     <article
       className="channel-link"

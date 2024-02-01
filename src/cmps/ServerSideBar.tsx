@@ -1,24 +1,21 @@
-import { useContext } from 'react'
-
-import {
-  SelectedServerContext,
-  SelectedServerContextType,
-} from '../context/SelectedServerContext'
-import { ServersContext, ServersContextType } from '../context/ServersContext'
-
 import ServerAvatar from './ui/ServerAvatar'
+import { useSelector } from 'react-redux'
+import { RootState } from '../store/store'
+import { Server } from '../services/api/server.service'
+import { selectServer } from '../store/actions/server.actions'
 
 type PropType = {}
 
 export default function ServerSideBar({}: PropType) {
-  const { servers } = useContext(ServersContext) as ServersContextType
-  const { selectedServer, setSelectedServer } = useContext(
-    SelectedServerContext,
-  ) as SelectedServerContextType
+  const servers: Server[] = useSelector<RootState, Server[]>(
+    (storeState) => storeState.server.servers,
+  )
+  const selectedServer: Server | null = useSelector<RootState, Server | null>(
+    (storeState) => storeState.server.selectedServer,
+  )
 
   function onSelectServer(serverId: string): void {
-    const server = servers?.find((server) => server._id === serverId)
-    if (server) setSelectedServer(server)
+    selectServer(serverId)
   }
 
   return (

@@ -1,43 +1,29 @@
-import { useContext } from 'react'
 import { Outlet } from 'react-router-dom'
-
-import {
-  SelectedServerContext,
-  SelectedServerContextType,
-} from '../context/SelectedServerContext'
-import {
-  SelectedChannelContext,
-  SelectedChannelContextType,
-} from '../context/SelectedChannelContext'
-
 import ChannelLinksCollapsable from './ui/ChannelLinkCollapsable'
 import LoggedinUserShield from './ui/LoggedinUserShield'
 
 import ChevronDownIcon from './svgs/ChevronDownIcon'
+import { useSelector } from 'react-redux'
+import { RootState } from '../store/store'
+import { Server } from '../services/api/server.service'
+import {
+  selectTextChannel,
+  selectVoiceChannel,
+} from '../store/actions/channel.actions'
 
 type PropType = {}
 
 export default function ServerMainSection({}: PropType) {
-  const { selectedServer } = useContext(
-    SelectedServerContext,
-  ) as SelectedServerContextType
+  const selectedServer: Server | null = useSelector<RootState, Server | null>(
+    (storeState) => storeState.server.selectedServer,
+  )
 
-  const { setSelectedTextChannel, setSelectedVoiceChannel } = useContext(
-    SelectedChannelContext,
-  ) as SelectedChannelContextType
-
-  function onSelectTextChannel(TextChannelId: string): void {
-    const textChannel = selectedServer?.textChannels.find(
-      (textChannel) => textChannel.id === TextChannelId,
-    )
-    if (textChannel) setSelectedTextChannel(textChannel)
+  function onSelectTextChannel(textChannelId: string): void {
+    selectTextChannel(textChannelId)
   }
 
-  function onSelectVoiceChannel(VoiceChannelId: string): void {
-    const voiceChannel = selectedServer?.voiceChannels.find(
-      (voiceChannel) => voiceChannel.id === VoiceChannelId,
-    )
-    if (voiceChannel) setSelectedVoiceChannel(voiceChannel)
+  function onSelectVoiceChannel(voiceChannelId: string): void {
+    selectVoiceChannel(voiceChannelId)
   }
 
   return (

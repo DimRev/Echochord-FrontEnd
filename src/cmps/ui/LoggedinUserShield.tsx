@@ -1,17 +1,16 @@
-import { useContext } from 'react'
 import GearIcon from '../svgs/GearIcon'
 import MicIcon from '../svgs/MicIcon'
 import SpeakerFullIcon from '../svgs/SpeakerFullIcon'
 import UserAvatar from './UserAvatar'
-import {
-  LoggedinUserContext,
-  LoggedinUserContextType,
-} from '../../context/LoggedinUserContext'
+
+import { useSelector } from 'react-redux'
+import { RootState } from '../../store/store'
+import { User } from '../../services/api/user.service'
 
 export default function LoggedinUserShield() {
-  const { loggedinUser } = useContext(
-    LoggedinUserContext,
-  ) as LoggedinUserContextType
+  const loggedinUser: User | null = useSelector<RootState, User | null>(
+    (storeState) => storeState.user.loggedinUser,
+  )
 
   if (loggedinUser === null) return <></>
   return (

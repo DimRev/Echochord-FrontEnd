@@ -1,75 +1,31 @@
-import { useContext, useEffect, useState } from 'react'
-import { Server, VoiceChannel } from '../services/api/server.service'
-import {
-  SelectedServerContext,
-  SelectedServerContextType,
-} from '../context/SelectedServerContext'
-import { TextChannel } from '../services/api/textChannel.service'
-
-import { Outlet, useNavigate, useParams } from 'react-router-dom'
-import { SelectedChannelContext } from '../context/SelectedChannelContext'
-import { ServersContext, ServersContextType } from '../context/ServersContext'
+import { useEffect } from 'react'
+import { loadServers, selectServer } from '../store/actions/server.actions'
+import { selectTextChannel } from '../store/actions/channel.actions'
+import { RootState } from '../store/store'
+import { Outlet, useParams } from 'react-router-dom'
 
 export type OnSelectServer = (serverId: string) => void
 export type OnSelectTextChannel = (channelId: string) => void
 export type OnSelectVoiceChannel = (channelId: string) => void
 
 export default function ChatPage() {
-  const [selectedTextChannel, setSelectedTextChannel] =
-    useState<TextChannel | null>(null)
-  const [selectedVoiceChannel, setSelectedVoiceChannel] =
-    useState<VoiceChannel | null>(null)
-  const { setSelectedServer } = useContext(
-    SelectedServerContext,
-  ) as SelectedServerContextType
-
-  const navigate = useNavigate()
-
-  const { servers } = useContext(ServersContext) as ServersContextType
   const { serverId, channelId } = useParams()
 
   useEffect(() => {
-    const server = getServerByServerId(serverId)
-    const textChannel = getTextChannelById(channelId)
-    if (server && serverId) setSelectedServer(server)
-    else setSelectedServer(null)
-    if (textChannel && channelId) setSelectedTextChannel(textChannel)
-    else setSelectedTextChannel(null)
-  }, [serverId, channelId, servers])
+    routeLoad()
+  }, [])
 
-  function getServerByServerId(
-    serverId: string | undefined,
-  ): Server | undefined {
-    const server = servers?.find((server) => server._id === serverId)
-    return server
-  }
-
-  function getTextChannelById(
-    channelId: string | undefined,
-  ): TextChannel | undefined {
-    const server = servers?.find((server) => server._id === serverId)
-    let textChannel
-    if (channelId) {
-      textChannel = server?.textChannels.find(
-        (textChannel) => textChannel.id === channelId,
-      )
-    } else if (server?.textChannels[0]) {
-      navigate(`/${server?._id}/${server?.textChannels[0].id}`)
-    }
-    return textChannel
+  async function routeLoad() {
+    await loadServers()
+    if (serverId) selectServer(serverId)
+    else selectServer('')
+    if (channelId) selectTextChannel(channelId)
+    else selectTextChannel('')
   }
 
   return (
     <section className="page chat-page">
-      <SelectedChannelContext.Provider
-        value={{
-          selectedTextChannel,
-          selectedVoiceChannel,
-          setSelectedTextChannel,
-          setSelectedVoiceChannel,
-        }}>
-        <Outlet />
-      </SelectedChannelContext.Provider>
+      <Outlet />
     </section>
   )
 }
