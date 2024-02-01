@@ -1,6 +1,6 @@
 import { storageService } from "../helpers/async-storage.service"
 import { utilService } from "../helpers/util.service"
-import { ChatMsg } from "./ChatMsg.service"
+import { ChatMsg } from "./chatMsg.service"
 import { Server, serverService } from "./server.service"
 
 export type TextChannel = {
