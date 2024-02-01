@@ -6,6 +6,7 @@ type PropType = {
 }
 export default function UserAvatar({ imgUrl, username }: PropType) {
   const [isLoaded, setIsLoaded] = useState<boolean | null>(null)
+
   function getAbbreviation(name: string): string {
     const word = name.split(' ')
     const abbreviation = word

@@ -15,12 +15,14 @@
     padding: 0 8px;
     border-bottom: 1px solid black;
 
-    .chat-msgs {
-    }
-
     .svg-icon {
       color: var(--content-regular);
     }
+  }
+
+  .chat-msgs {
+    overflow-y: auto;
+    height: calc(100dvh - 110px);
   }
 
   .chat-input-section {
