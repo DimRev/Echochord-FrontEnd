@@ -27,7 +27,7 @@ const DB_KEY = 'serverDB'
 
 async function getChatMsgs(serverId: string, textChannelId: string): Promise<ChatMsg[]> {
   try {
-    const server = await storageService.get(DB_KEY, serverId) as Server
+    const server = await storageService.get<Server>(DB_KEY, serverId)
     const textChannel = server.textChannels.find(textChannel => textChannel.id === textChannelId)
     if (!textChannel) throw new Error(`No text channel ${textChannelId} on server ${serverId}`)
     const chatMsgs = [...textChannel.chatMsgs]
@@ -41,7 +41,7 @@ async function getChatMsgs(serverId: string, textChannelId: string): Promise<Cha
 
 async function getChatMsgById(serverId: string, textChannelId: string, chatMsgId: string): Promise<ChatMsg> {
   try {
-    const server = await storageService.get(DB_KEY, serverId) as Server
+    const server = await storageService.get<Server>(DB_KEY, serverId)
     const textChannel = server.textChannels.find(textChannel => textChannel.id === textChannelId)
     if (!textChannel) throw new Error(`Could not find text channel ${textChannelId} on ${serverId}`)
     const chatMsg = textChannel.chatMsgs.find(chatMsg => chatMsg.id === chatMsgId)
@@ -54,7 +54,7 @@ async function getChatMsgById(serverId: string, textChannelId: string, chatMsgId
 
 async function addChatMsg(serverId: string, textChannelId: string, chatMsg: NewChatMsg): Promise<ChatMsg> {
   try {
-    const server = await storageService.get(DB_KEY, serverId) as Server
+    const server = await storageService.get<Server>(DB_KEY, serverId)
     const newChatMsg: ChatMsg = { ...chatMsg, id: utilService.makeId() }
 
     const newServer = {
@@ -73,7 +73,7 @@ async function addChatMsg(serverId: string, textChannelId: string, chatMsg: NewC
 
 async function updateChatMsg(serverId: string, textChannelId: string, chatMsg: ChatMsg): Promise<ChatMsg> {
   try {
-    const server = await storageService.get(DB_KEY, serverId) as Server
+    const server = await storageService.get<Server>(DB_KEY, serverId)
 
     const newServer = {
       ...server, textChannels: server.textChannels.map(textChannel => {
@@ -96,7 +96,7 @@ async function updateChatMsg(serverId: string, textChannelId: string, chatMsg: C
 
 async function deleteChatMsg(serverId: string, textChannelId: string, chatMsgId: string): Promise<string> {
   try {
-    const server = await storageService.get(DB_KEY, serverId) as Server
+    const server = await storageService.get<Server>(DB_KEY, serverId)
 
     const newServer = {
       ...server, textChannels: server.textChannels.map(textChannel => {

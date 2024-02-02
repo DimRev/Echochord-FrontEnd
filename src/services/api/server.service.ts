@@ -94,28 +94,28 @@ const demoData: Server[] = [
 _initDemoData()
 
 function getServers(): Promise<Server[]> {
-  // return httpService.get(BASE_URL)
-  return storageService.query(DB_KEY) as Promise<Server[]>
+  // return httpService.get<Server>(BASE_URL) as Promise<Server[]>
+  return storageService.query<Server>(DB_KEY)
 }
 
 function getServerById(serverId: string): Promise<Server> {
-  // return httpService.get(BASE_URL + serverId)
-  return storageService.get(DB_KEY, serverId) as Promise<Server>
+  // return httpService.get<Server>(BASE_URL + serverId) as Promise<Server>
+  return storageService.get<Server>(DB_KEY, serverId)
 }
 
 function addServer(server: NewServer): Promise<Server> {
-  // return httpService.post(BASE_URL, {server})
-  return storageService.post(DB_KEY, server) as Promise<Server>
+  // return httpService.post<Server>(BASE_URL, server)
+  return storageService.post<Server>(DB_KEY, server)
 }
 
 function updateServer(server: Server): Promise<Server> {
-  // return httpService.put(BASE_URL, {server})
-  return storageService.put(DB_KEY, server) as Promise<Server>
+  // return httpService.put(BASE_URL, server)
+  return storageService.put<Server>(DB_KEY, server)
 }
 
 function deleteServer(serverId: string): Promise<string> {
   // return httpService.delete(BASE_URL + serverId)
-  return storageService.remove(DB_KEY, serverId)
+  return storageService.remove<Server>(DB_KEY, serverId)
 }
 
 function _initDemoData() {

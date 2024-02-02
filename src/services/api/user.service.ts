@@ -40,22 +40,22 @@ _initDemoData()
 
 function getUsers(): Promise<User[]> {
   // return httpService.get(BASE_URL)
-  return storageService.query(DB_KEY) as Promise<User[]>
+  return storageService.query<User>(DB_KEY)
 }
 
 function getUserById(userId: string): Promise<User> {
   // return httpService.get(BASE_URL + userId)
-  return storageService.get(DB_KEY, userId) as Promise<User>
+  return storageService.get<User>(DB_KEY, userId)
 }
 
 function addUser(user: NewUser): Promise<User> {
   // return httpService.post(BASE_URL, {user})
-  return storageService.post(DB_KEY, user) as Promise<User>
+  return storageService.post<User>(DB_KEY, user)
 }
 
 function updateUser(user: User): Promise<User> {
   // return httpService.put(BASE_URL, {user})
-  return storageService.put(DB_KEY, user) as Promise<User>
+  return storageService.put<User>(DB_KEY, user)
 }
 
 function deleteUser(userId: string): Promise<string> {

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 
 import HashtagIcon from './svgs/HashtagIcon'
 import ChatMsgPreview from './ui/ChatMsgPreview'
@@ -16,6 +16,14 @@ export default function ChannelTextSection({}: PropType) {
     TextChannel | null
   >((storeState) => storeState.server.selectedTextChannel)
 
+  const chatSectionRef = useRef<HTMLDivElement | null>(null)
+
+  useEffect(() => {
+    if (chatSectionRef.current) {
+      chatSectionRef.current.scrollTo(0, chatSectionRef.current.scrollHeight)
+    }
+  }, [chatSectionRef])
+
   // TODO: REFACTOR CODE BELOW TO "ACTION" LIKE EXECUTION
   async function onSubmitChatMsg(txt: string) {
     submitChatMsg(txt)
@@ -29,7 +37,7 @@ export default function ChannelTextSection({}: PropType) {
         <HashtagIcon />
         <span>{selectedTextChannel.name}</span>
       </header>
-      <section className="chat-msgs">
+      <section className="chat-msgs" ref={chatSectionRef}>
         {selectedTextChannel.chatMsgs.map((msg, idx) => (
           <React.Fragment key={idx}>
             <ChatMsgPartition msgs={selectedTextChannel.chatMsgs} msg={msg} />

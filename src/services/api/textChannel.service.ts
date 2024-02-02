@@ -27,7 +27,7 @@ const DB_KEY = 'serverDB'
 
 async function getTextChannels(serverId: string): Promise<TextChannel[]> {
   try {
-    const server = await storageService.get(DB_KEY, serverId) as Server
+    const server = await storageService.get<Server>(DB_KEY, serverId) as Server
     const textChannels = [...server.textChannels]
     if (!textChannels) throw new Error(`No text channels on server ${serverId}`)
     return textChannels
@@ -39,7 +39,7 @@ async function getTextChannels(serverId: string): Promise<TextChannel[]> {
 
 async function getTextChannelById(serverId: string, textChannelId: string): Promise<TextChannel> {
   try {
-    const server = await storageService.get(DB_KEY, serverId) as Server
+    const server = await storageService.get<Server>(DB_KEY, serverId)
     const textChannel = server.textChannels.find(textChannel => textChannel.id === textChannelId)
 
     if (!textChannel) throw new Error(`Could not find text channel ${textChannelId} on ${serverId}`)
@@ -51,7 +51,7 @@ async function getTextChannelById(serverId: string, textChannelId: string): Prom
 
 async function addTextChannel(serverId: string, textChannel: NewTextChannel): Promise<TextChannel> {
   try {
-    const server = await storageService.get(DB_KEY, serverId) as Server
+    const server = await storageService.get<Server>(DB_KEY, serverId)
     const newTextChannel: TextChannel = { ...textChannel, id: utilService.makeId() }
 
     const newServer = { ...server, textChannels: [...server.textChannels, newTextChannel] }
@@ -65,7 +65,7 @@ async function addTextChannel(serverId: string, textChannel: NewTextChannel): Pr
 
 async function updateTextChannel(serverId: string, textChannel: TextChannel): Promise<TextChannel> {
   try {
-    const server = await storageService.get(DB_KEY, serverId) as Server
+    const server = await storageService.get<Server>(DB_KEY, serverId)
 
     const newServer = {
       ...server, textChannels: server.textChannels.map(currTextChannel => {
@@ -83,7 +83,7 @@ async function updateTextChannel(serverId: string, textChannel: TextChannel): Pr
 
 async function deleteTextChannel(serverId: string, textChannelId: string): Promise<string> {
   try {
-    const server = await storageService.get(DB_KEY, serverId) as Server
+    const server = await storageService.get<Server>(DB_KEY, serverId)
 
     const newServer = {
       ...server, textChannels: server.textChannels.filter(currTextChannel => {

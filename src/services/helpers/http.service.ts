@@ -1,11 +1,5 @@
 import Axios from 'axios'
 
-import { Server } from '../api/server.service.js'
-import { User } from '../api/user.service.js'
-
-type Data = User | Server
-type NewData = Omit<User, '_id'> | Omit<Server, '_id'>
-
 const BASE_URL = process.env.NODE_ENV === 'production' ? '/api/' : '//localhost:3030/api/'
 
 const axios = Axios.create({
@@ -13,21 +7,25 @@ const axios = Axios.create({
 })
 
 export const httpService = {
-  get(endpoint: string, data?: string) {
-    return ajax(endpoint, 'GET', data)
+  get<T>(endpoint: string, data?: string | undefined): Promise<T | T[]> {
+    if (data !== undefined) {
+      return ajax<T>(endpoint, 'GET', data) as Promise<T>;
+    } else {
+      return ajax<T[]>(endpoint, 'GET', data) as Promise<T[]>;
+    }
   },
-  post(endpoint: string, data: NewData) {
-    return ajax(endpoint, 'POST', data)
+  post<T>(endpoint: string, data: Omit<T, '_id'>): Promise<T> {
+    return ajax<T>(endpoint, 'POST', data) as Promise<T>
   },
-  put(endpoint: string, data: Data) {
-    return ajax(endpoint, 'PUT', data)
+  put<T>(endpoint: string, data: T) {
+    return ajax<T>(endpoint, 'PUT', data) as Promise<T>
   },
-  delete(endpoint: string, data: string) {
-    return ajax(endpoint, 'DELETE', data)
+  delete<T>(endpoint: string, data: string) {
+    return ajax<T>(endpoint, 'DELETE', data) as Promise<string>
   },
 }
 
-async function ajax(endpoint: string, method: string = 'GET', data: Data | NewData | string | null = null): Promise<Data | Data[] | string> {
+async function ajax<T>(endpoint: string, method: string = 'GET', data: T | Omit<T, '_id'> | string | null = null): Promise<T | T[] | string> {
   try {
     const res = await axios({
       url: `${BASE_URL}${endpoint}`,

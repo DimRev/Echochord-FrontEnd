@@ -1,10 +1,8 @@
 import { utilService } from './util.service.js'
 
-import { Server } from '../api/server.service.js'
-import { User } from '../api/user.service.js'
-
-type Entity = User | Server
-type newEntity = Omit<User, '_id'> | Omit<Server, '_id'>
+interface EntityWithId {
+  _id: string
+}
 
 export const storageService = {
   query,
@@ -14,14 +12,14 @@ export const storageService = {
   remove,
 }
 
-function query(entityType: string, delay: number = 300): Promise<Entity[]> {
+function query<T extends EntityWithId>(entityType: string, delay: number = 300): Promise<T[]> {
   const storedData = localStorage.getItem(entityType);
-  const entities: Entity[] = storedData ? JSON.parse(storedData) : []
+  const entities: T[] = storedData ? JSON.parse(storedData) : []
   return new Promise((resolve) => setTimeout(() => resolve(entities), delay))
 }
 
-async function get(entityType: string, entityId: string): Promise<Entity> {
-  const entities = await query(entityType)
+async function get<T extends EntityWithId>(entityType: string, entityId: string): Promise<T> {
+  const entities: T[] = await query<T>(entityType)
   const entity = entities.find((currEntity) => (currEntity._id === entityId))
   if (!entity)
     throw new Error(
@@ -30,19 +28,19 @@ async function get(entityType: string, entityId: string): Promise<Entity> {
   return entity
 }
 
-async function post(entityType: string, newEntity: newEntity): Promise<Entity> {
-  const entities = await query(entityType)
-  const entityToAdd = { ...newEntity, _id: utilService.makeId() }
-  let newEntities
-  if (entities.length === 0) newEntities = [entityToAdd]
-  else newEntities = [...entities, entityToAdd]
-  _save(entityType, newEntities)
-  return entityToAdd
+async function post<T extends EntityWithId>(entityType: string, newEntity: Omit<T, "_id">): Promise<T> {
+  const entities = await query<T>(entityType);
+  const entityToAdd = { ...newEntity, _id: utilService.makeId() } as T
+  let newEntities;
+  if (entities.length === 0) newEntities = [entityToAdd];
+  else newEntities = [...entities, entityToAdd];
+  _save(entityType, newEntities);
+  return entityToAdd;
 }
 
-async function put(entityType: string, newEntity: Entity): Promise<Entity> {
-  const entities = await query(entityType)
-  const entityToUpdate: Entity = { ...newEntity }
+async function put<T extends EntityWithId>(entityType: string, newEntity: T): Promise<T> {
+  const entities: T[] = await query<T>(entityType)
+  const entityToUpdate: T = { ...newEntity }
   const idx = entities.findIndex((entity) => entity._id === entityToUpdate._id)
   if (idx === -1) {
     throw new Error(
@@ -56,8 +54,8 @@ async function put(entityType: string, newEntity: Entity): Promise<Entity> {
   return entityToUpdate
 }
 
-async function remove(entityType: string, entityId: string): Promise<string> {
-  const entities = await query(entityType)
+async function remove<T extends EntityWithId>(entityType: string, entityId: string): Promise<string> {
+  const entities = await query<T>(entityType)
   const idx = entities.findIndex((entity) => entity._id === entityId)
   if (idx === -1) {
     throw new Error(
@@ -69,6 +67,6 @@ async function remove(entityType: string, entityId: string): Promise<string> {
   return entityId
 }
 
-function _save(entityType: string, entities: Entity[]): void {
+function _save<T extends EntityWithId>(entityType: string, entities: T[]): void {
   localStorage.setItem(entityType, JSON.stringify(entities))
 }
